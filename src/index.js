@@ -5,6 +5,8 @@ import App from "./App";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import { updatePlayerLocation } from "./store/playerLocationSlice";
+import { nextLocation } from './location';
+import { reverseDirection } from "./direction";
 
 const container = document.createElement("div");
 container.id = "root";
@@ -20,14 +22,18 @@ root.render(
 );
 
 document.addEventListener('keydown', e => {
-  const screen = store.getState().screen.value;
+  const state = store.getState();
+  const screen = state.screen.value;
+  const playerLocation = state.playerLocation.value;
+  const playerDirection = state.playerDirection.value;
+
   if (screen === 'game') {
     if (e.code === 'KeyW') {
-      const playerLocation = store.getState().playerLocation.value;
-      store.dispatch(updatePlayerLocation([playerLocation[0] - 1, playerLocation[1]]));
+      const targetLocation = nextLocation(playerLocation, playerDirection);
+      store.dispatch(updatePlayerLocation(targetLocation));
     } else if (e.code === 'KeyS') {
-      const playerLocation = store.getState().playerLocation.value;
-      store.dispatch(updatePlayerLocation([playerLocation[0] + 1, playerLocation[1]]));
+      const targetLocation = nextLocation(playerLocation, reverseDirection(playerDirection));
+      store.dispatch(updatePlayerLocation(targetLocation));
     }
   }
 });

@@ -1,39 +1,34 @@
-import React, { useEffect, useRef } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
+import React, { useEffect } from "react";
+import { Dungeon } from "./components/Dungeon";
+import { useThree } from "@react-three/fiber";
 import { useSelector } from "react-redux";
-import { Vector3 } from "three";
 import { centeredVectorForLocation, nextLocation } from "./location";
-import { NORTH, vectorForDirection } from "./direction";
 
 const Game = () => {
   const { camera } = useThree();
-  const playerLocation = useSelector(state => state.playerLocation.value);
-
-  const ref = useRef();
+  const playerLocation = useSelector((state) => state.playerLocation.value);
+  const playerDirection = useSelector((state) => state.playerDirection.value);
 
   useEffect(() => {
-    ref.current.position.x = 0.5;
-    ref.current.position.y = 0.5;
-    ref.current.position.z = 0.5;
-  }, [])
-
-  useFrame(({ clock }) => {
-    const playerPosition = centeredVectorForLocation(playerLocation);
-    camera.position.lerp(playerPosition, 0.15);
-
-    camera.lookAt = centeredVectorForLocation(nextLocation(playerLocation, NORTH));
     camera.fov = 100;
-    camera.updateMatrix();
-    camera.updateWorldMatrix();
     camera.updateProjectionMatrix();
-  });
+
+    const position = centeredVectorForLocation(playerLocation);
+    camera.position.x = position.x;
+    camera.position.y = position.y;
+    camera.position.z = position.z;
+
+    const front = centeredVectorForLocation(
+      nextLocation(playerLocation, playerDirection),
+    );
+    camera.lookAt(front);
+  }, [camera, playerLocation, playerDirection]);
 
   return (
     <>
-      <mesh ref={ref}>
-        <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial />
-      </mesh>
+      <ambientLight intensity={0.3} />
+      <directionalLight position={[0, 0, 5]} />
+      <Dungeon />
     </>
   );
 };

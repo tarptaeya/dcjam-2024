@@ -1,13 +1,19 @@
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { useSelector } from "react-redux";
-import { Matrix4, Object3D } from "three";
+import { Matrix4, Object3D, RepeatWrapping, TextureLoader } from "three";
 import { CELL_WALL } from "../grid";
 import { centeredVectorForLocation } from "../location";
+import { useLoader } from "@react-three/fiber";
 
 const Walls = () => {
     const mesh = useRef();
     const dummy = useMemo(() => new Object3D(), []);
     const dungeon = useSelector((state) => state.dungeon.value);
+
+    const colorMap = useLoader(TextureLoader, './wall-1.png');
+    colorMap.wrapS = RepeatWrapping;
+    colorMap.wrapT = RepeatWrapping;
+    colorMap.repeat.set(3, 3);
 
     const getWallLocations = useCallback(() => {
         const m = dungeon.length;
@@ -39,24 +45,38 @@ const Walls = () => {
     return (
         <instancedMesh ref={mesh} args={[null, null, wallLocations.length]}>
             <boxGeometry args={[1, 1, 1]} />
-            <meshStandardMaterial color={'brown'} />
+            <meshStandardMaterial map={colorMap} />
         </instancedMesh>
     );
 };
 
 
 const Ceiling = () => {
+    const SCALE = 1000;
+
+    const colorMap = useLoader(TextureLoader, './ceiling.png');
+    colorMap.wrapS = RepeatWrapping;
+    colorMap.wrapT = RepeatWrapping;
+    colorMap.repeat.set(SCALE, SCALE);
+
     return <mesh position={[0, 1, 0]} scale={[1000, 1000, 1000]} rotation={[Math.PI / 2, 0, 0]}>
         <planeGeometry />
-        <meshStandardMaterial color={'pink'} />
+        <meshStandardMaterial map={colorMap} />
     </mesh>
 }
 
 
 const Floor = () => {
-    return <mesh position={[0, 0, 0]} scale={[1000, 1000, 1000]} rotation={[-Math.PI / 2, 0, 0]}>
+    const SCALE = 1000;
+
+    const colorMap = useLoader(TextureLoader, './floor-1.png');
+    colorMap.wrapS = RepeatWrapping;
+    colorMap.wrapT = RepeatWrapping;
+    colorMap.repeat.set(SCALE, SCALE);
+
+    return <mesh position={[0, 0, 0]} scale={[SCALE, SCALE, SCALE]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry />
-        <meshStandardMaterial color={'green'} />
+        <meshStandardMaterial map={colorMap} />
     </mesh>
 };
 

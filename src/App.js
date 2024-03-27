@@ -1,24 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import { useRecoilValue } from 'recoil';
+import AppState from './AppState';
+import { WelcomeScreen, AboutScreen, GameScreen } from './screens';
+
 
 function App() {
+  const screen = useRecoilValue(AppState.screen);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {screen === "welcome" && <WelcomeScreen />}
+      {screen === "about" && <AboutScreen />}
+      {screen === "game" && <GameScreen />}
+    </>
   );
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Dungeon } from "./components/Dungeon";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useSelector } from "react-redux";
@@ -37,8 +37,7 @@ const Game = () => {
 
   return (
     <>
-      <ambientLight intensity={0.2} />
-      <pointLight intensity={1.0} position={centeredVectorForLocation(playerLocation)} />
+      <ambientLight intensity={5.0} />
       <Dungeon />
     </>
   );

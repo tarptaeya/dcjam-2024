@@ -1,4 +1,11 @@
+import { useFrame } from "@react-three/fiber";
+
+
 const Game = () => {
+    useFrame(({ clock }) => {
+
+    });
+
     return (
         <>
             <mesh>
@@ -8,5 +15,6 @@ const Game = () => {
         </>
     );
 };
+
 
 export default Game;

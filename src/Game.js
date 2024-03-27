@@ -1,20 +1,17 @@
+import React from "react";
 import { useFrame } from "@react-three/fiber";
 
-
 const Game = () => {
-    useFrame(({ clock }) => {
+  useFrame(({ clock }) => {});
 
-    });
-
-    return (
-        <>
-            <mesh>
-                <boxGeometry args={[1, 1, 1,]} />
-                <meshStandardMaterial />
-            </mesh>
-        </>
-    );
+  return (
+    <>
+      <mesh>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial />
+      </mesh>
+    </>
+  );
 };
-
 
 export default Game;

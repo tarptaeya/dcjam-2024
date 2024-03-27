@@ -1,21 +1,10 @@
-import { useRecoilValue } from 'recoil';
-import AppState from './AppState';
-import { WelcomeScreen, AboutScreen, GameScreen } from './screens';
-import { useEffect } from 'react';
-import { useKeypressHandler } from './inputHandler';
-
+import React from "react";
+import { WelcomeScreen, AboutScreen, GameScreen } from "./screens";
+import { useSelector } from "react-redux";
 
 function App() {
-  const screen = useRecoilValue(AppState.screen);
-  const keypressHandler = useKeypressHandler();
-
-  useEffect(() => {
-    document.addEventListener('keypress', keypressHandler, false);
-
-    return function cleanup() {
-      document.removeEventListener('keypress', keypressHandler, false);
-    };
-  }, []);
+  const screen = useSelector((state) => state.screen.value);
+  console.log(screen);
 
   return (
     <>

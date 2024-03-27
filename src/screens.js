@@ -1,52 +1,54 @@
-import { useRecoilState } from 'recoil';
-import AppState from './AppState';
-import { Canvas } from '@react-three/fiber';
-import Game from './Game';
-
+import React from "react";
+import { Canvas } from "@react-three/fiber";
+import Game from "./Game";
+import { useDispatch } from "react-redux";
+import { updateScreen } from "./store/screenSlice";
 
 export const AboutScreen = () => {
-    const [screen, setScreen] = useRecoilState(AppState.screen);
+  const dispatch = useDispatch();
 
-    const handleBackButton = () => {
-        setScreen('welcome');
-    };
+  const handleBackButton = () => {
+    dispatch(updateScreen("welcome"));
+  };
 
-    return (
-        <div>
-            <h2>About the game</h2>
-            <button onClick={handleBackButton}>Back</button>
-        </div>
-    );
+  return (
+    <div>
+      <h2>About the game</h2>
+      <button onClick={handleBackButton}>Back</button>
+    </div>
+  );
 };
 
 export const GameScreen = () => {
-    return (
-        <Canvas>
-            <Game />
-        </Canvas>
-    );
-}
+  return (
+    <Canvas>
+      <Game />
+    </Canvas>
+  );
+};
 
 export const WelcomeScreen = () => {
-    const [screen, setScreen] = useRecoilState(AppState.screen);
+  const dispatch = useDispatch();
 
-    const navigateToGame = () => {
-        setScreen('game');
-    };
+  const navigateToGame = () => {
+    dispatch(updateScreen("game"));
+  };
 
-    const navigateToAbout = () => {
-        setScreen('about');
-    };
+  const navigateToAbout = () => {
+    dispatch(updateScreen("about"));
+  };
 
-    return (<>
+  return (
+    <>
+      <div>
         <div>
-            <div>
-                <h1>Chintu The Explorer</h1>
-            </div>
-            <div>
-                <button onClick={navigateToGame}>New Game</button>
-                <button onClick={navigateToAbout}>Credits</button>
-            </div>
+          <h1>Chintu The Explorer</h1>
         </div>
-    </>);
+        <div>
+          <button onClick={navigateToGame}>New Game</button>
+          <button onClick={navigateToAbout}>Credits</button>
+        </div>
+      </div>
+    </>
+  );
 };

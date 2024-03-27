@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { Dungeon } from "./components/Dungeon";
-import { useThree } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { useSelector } from "react-redux";
 import { centeredVectorForLocation, nextLocation } from "./location";
+import { vectorForDirection } from "./direction";
+import { Vector3 } from "three";
 
 const Game = () => {
   const { camera } = useThree();
@@ -22,12 +24,21 @@ const Game = () => {
       nextLocation(playerLocation, playerDirection),
     );
     camera.lookAt(front);
-  }, [camera, playerLocation, playerDirection]);
+  }, []);
+
+  useFrame(({ clock }) => {
+    const position = centeredVectorForLocation(playerLocation);
+    camera.position.lerp(position, 0.3);
+
+    const deltaPosition = vectorForDirection(playerDirection);
+    const front = new Vector3(camera.position.x + deltaPosition.x, camera.position.y + deltaPosition.y, camera.position.z + deltaPosition.z);
+    camera.lookAt(front);
+  });
 
   return (
     <>
-      <ambientLight intensity={0.3} />
-      <directionalLight position={[0, 0, 5]} />
+      <ambientLight intensity={0.2} />
+      <pointLight intensity={1.0} position={centeredVectorForLocation(playerLocation)} />
       <Dungeon />
     </>
   );

@@ -52,7 +52,7 @@ const Game = () => {
   useEffect(() => {
     if (!playerTurn && currentCombat.isActive && enemyHealth > 0) {
       const attack = enemyAttackOptions[0];
-      console.log(playerHealth, enemyHealth);
+
       setTimeout(() => {
         dispatch(processEnemyAttack(attack));
         dispatch(alternateTurn());

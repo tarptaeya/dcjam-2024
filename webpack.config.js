@@ -13,7 +13,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Output Management",
+      title: "Chintu the explorer",
     }),
     new CopyPlugin({
       patterns: [{ from: "./public", to: "" }],

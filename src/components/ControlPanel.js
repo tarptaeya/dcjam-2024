@@ -20,7 +20,7 @@ const StartBattleButton = () => {
     );
   };
 
-  return <button onClick={onClick}>Battle</button>;
+  return <button onClick={onClick} className="nes-btn is-error">Battle</button>;
 };
 
 const CombatPanel = () => {

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
@@ -19,6 +21,10 @@ body,
 
 * {
   margin: 0;
+  font-family: "EB Garamond", system-ui;
+  font-weight: 400;
+  font-style: normal;
+
 }
 
 canvas {
@@ -32,9 +38,7 @@ canvas {
   left: 50%;
   transform: translateX(-50%);
   color: white;
-  font-weight: bolder;
   text-transform: capitalize;
-  font-size: 2rem;
 }
 
 #control-panel {
@@ -49,6 +53,29 @@ canvas {
 
 #control-panel-left {
   flex: 1;
-  font-size: 2rem;
   color: white;
+}
+
+#welcome-screen {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 22px;
+  justify-content: space-around;
+  height: 100%;
+  background-image: url('~/public/wall-1.png');
+}
+
+#welcome-screen-title {
+  background-color: white;
+}
+
+
+#welcome-screen-btn-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#welcome-screen-btn-container>button {
+  margin-top: 22px;
 }

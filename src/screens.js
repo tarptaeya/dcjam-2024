@@ -45,16 +45,15 @@ export const WelcomeScreen = () => {
   };
 
   return (
-    <>
-      <div>
-        <div>
-          <h1>Chintu The Explorer</h1>
-        </div>
-        <div>
-          <button onClick={navigateToGame}>New Game</button>
-          <button onClick={navigateToAbout}>Credits</button>
-        </div>
+    <div id='welcome-screen'>
+      <div id='welcome-screen-title' className="nes-container">
+        <h1>Chintu The Explorer</h1>
       </div>
-    </>
+      <div id='welcome-screen-btn-container'>
+        <button onClick={navigateToGame} className="is-success">New Game</button>
+        <button onClick={() => { }} className="">Options</button>
+        <button onClick={navigateToAbout} className="">Credits</button>
+      </div>
+    </div>
   );
 };

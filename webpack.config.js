@@ -2,7 +2,6 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
-
 module.exports = {
   entry: "./src/index.js",
   mode: "development",
@@ -17,9 +16,7 @@ module.exports = {
       title: "Output Management",
     }),
     new CopyPlugin({
-      patterns: [
-        { from: "./public", to: "" }
-      ],
+      patterns: [{ from: "./public", to: "" }],
     }),
   ],
   module: {

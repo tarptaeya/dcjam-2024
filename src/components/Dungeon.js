@@ -6,130 +6,138 @@ import { centeredVectorForLocation } from "../location";
 import { useLoader } from "@react-three/fiber";
 
 const Walls = () => {
-    const mesh = useRef();
-    const dummy = useMemo(() => new Object3D(), []);
-    const dungeon = useSelector((state) => state.dungeon.value);
+  const mesh = useRef();
+  const dummy = useMemo(() => new Object3D(), []);
+  const dungeon = useSelector((state) => state.dungeon.value);
 
-    const colorMap = useLoader(TextureLoader, './wall-1.png');
-    colorMap.wrapS = RepeatWrapping;
-    colorMap.wrapT = RepeatWrapping;
-    colorMap.repeat.set(3, 3);
+  const colorMap = useLoader(TextureLoader, "./wall-1.png");
+  colorMap.wrapS = RepeatWrapping;
+  colorMap.wrapT = RepeatWrapping;
+  colorMap.repeat.set(3, 3);
 
-    const getWallLocations = useCallback(() => {
-        const m = dungeon.length;
-        const n = dungeon[0].length;
-        const ans = [];
-        for (let i = 0; i < m; ++i) {
-            for (let j = 0; j < n; ++j) {
-                if (dungeon[i][j] == CELL_WALL) {
-                    ans.push([i, j]);
-                }
-            }
+  const getWallLocations = useCallback(() => {
+    const m = dungeon.length;
+    const n = dungeon[0].length;
+    const ans = [];
+    for (let i = 0; i < m; ++i) {
+      for (let j = 0; j < n; ++j) {
+        if (dungeon[i][j] == CELL_WALL) {
+          ans.push([i, j]);
         }
-        return ans;
-    }, [dungeon]);
+      }
+    }
+    return ans;
+  }, [dungeon]);
 
-    const wallLocations = getWallLocations();
+  const wallLocations = getWallLocations();
 
-    useEffect(() => {
-        wallLocations.forEach((loc, index) => {
-            const position = centeredVectorForLocation(loc);
-            dummy.position.x = position.x;
-            dummy.position.y = position.y;
-            dummy.position.z = position.z;
-            dummy.updateMatrix();
-            mesh.current.setMatrixAt(index, dummy.matrix);
-        });
-    }, [wallLocations]);
+  useEffect(() => {
+    wallLocations.forEach((loc, index) => {
+      const position = centeredVectorForLocation(loc);
+      dummy.position.x = position.x;
+      dummy.position.y = position.y;
+      dummy.position.z = position.z;
+      dummy.updateMatrix();
+      mesh.current.setMatrixAt(index, dummy.matrix);
+    });
+  }, [wallLocations]);
 
-    return (
-        <instancedMesh ref={mesh} args={[null, null, wallLocations.length]}>
-            <boxGeometry args={[1, 1, 1]} />
-            <meshStandardMaterial map={colorMap} />
-        </instancedMesh>
-    );
+  return (
+    <instancedMesh ref={mesh} args={[null, null, wallLocations.length]}>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial map={colorMap} />
+    </instancedMesh>
+  );
 };
-
 
 const Ceiling = () => {
-    const SCALE = 1000;
+  const SCALE = 1000;
 
-    const colorMap = useLoader(TextureLoader, './ceiling.png');
-    colorMap.wrapS = RepeatWrapping;
-    colorMap.wrapT = RepeatWrapping;
-    colorMap.repeat.set(SCALE, SCALE);
+  const colorMap = useLoader(TextureLoader, "./ceiling.png");
+  colorMap.wrapS = RepeatWrapping;
+  colorMap.wrapT = RepeatWrapping;
+  colorMap.repeat.set(SCALE, SCALE);
 
-    return <mesh position={[0, 1, 0]} scale={[1000, 1000, 1000]} rotation={[Math.PI / 2, 0, 0]}>
-        <planeGeometry />
-        <meshStandardMaterial map={colorMap} />
+  return (
+    <mesh
+      position={[0, 1, 0]}
+      scale={[1000, 1000, 1000]}
+      rotation={[Math.PI / 2, 0, 0]}
+    >
+      <planeGeometry />
+      <meshStandardMaterial map={colorMap} />
     </mesh>
-}
-
+  );
+};
 
 const Floor = () => {
-    const SCALE = 1000;
+  const SCALE = 1000;
 
-    const colorMap = useLoader(TextureLoader, './floor-1.png');
-    colorMap.wrapS = RepeatWrapping;
-    colorMap.wrapT = RepeatWrapping;
-    colorMap.repeat.set(SCALE, SCALE);
+  const colorMap = useLoader(TextureLoader, "./floor-1.png");
+  colorMap.wrapS = RepeatWrapping;
+  colorMap.wrapT = RepeatWrapping;
+  colorMap.repeat.set(SCALE, SCALE);
 
-    return <mesh position={[0, 0, 0]} scale={[SCALE, SCALE, SCALE]} rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry />
-        <meshStandardMaterial map={colorMap} />
+  return (
+    <mesh
+      position={[0, 0, 0]}
+      scale={[SCALE, SCALE, SCALE]}
+      rotation={[-Math.PI / 2, 0, 0]}
+    >
+      <planeGeometry />
+      <meshStandardMaterial map={colorMap} />
     </mesh>
+  );
 };
-
 
 const Enemies = () => {
-    const mesh = useRef();
-    const dummy = useMemo(() => new Object3D(), []);
-    const dungeon = useSelector((state) => state.dungeon.value);
+  const mesh = useRef();
+  const dummy = useMemo(() => new Object3D(), []);
+  const dungeon = useSelector((state) => state.dungeon.value);
 
-    const getEnemyLocations = useCallback(() => {
-        const m = dungeon.length;
-        const n = dungeon[0].length;
-        const ans = [];
-        for (let i = 0; i < m; ++i) {
-            for (let j = 0; j < n; ++j) {
-                if (dungeon[i][j] == CELL_ENEMY) {
-                    ans.push([i, j]);
-                }
-            }
+  const getEnemyLocations = useCallback(() => {
+    const m = dungeon.length;
+    const n = dungeon[0].length;
+    const ans = [];
+    for (let i = 0; i < m; ++i) {
+      for (let j = 0; j < n; ++j) {
+        if (dungeon[i][j] == CELL_ENEMY) {
+          ans.push([i, j]);
         }
-        return ans;
-    }, [dungeon]);
+      }
+    }
+    return ans;
+  }, [dungeon]);
 
-    const enemyLocations = getEnemyLocations();
+  const enemyLocations = getEnemyLocations();
 
-    useEffect(() => {
-        enemyLocations.forEach((loc, index) => {
-            const position = centeredVectorForLocation(loc);
-            dummy.position.x = position.x;
-            dummy.position.y = position.y;
-            dummy.position.z = position.z;
-            dummy.scale.set(0.2, 0.2, 0.2);
-            dummy.updateMatrix();
-            mesh.current.setMatrixAt(index, dummy.matrix);
-        });
-    }, [enemyLocations]);
+  useEffect(() => {
+    enemyLocations.forEach((loc, index) => {
+      const position = centeredVectorForLocation(loc);
+      dummy.position.x = position.x;
+      dummy.position.y = position.y;
+      dummy.position.z = position.z;
+      dummy.scale.set(0.2, 0.2, 0.2);
+      dummy.updateMatrix();
+      mesh.current.setMatrixAt(index, dummy.matrix);
+    });
+  }, [enemyLocations]);
 
-    return (
-        <instancedMesh ref={mesh} args={[null, null, enemyLocations.length]}>
-            <capsuleGeometry args={[1, 1, 8, 16]} />
-            <meshStandardMaterial color={'red'} />
-        </instancedMesh>
-    );
+  return (
+    <instancedMesh ref={mesh} args={[null, null, enemyLocations.length]}>
+      <capsuleGeometry args={[1, 1, 8, 16]} />
+      <meshStandardMaterial color={"red"} />
+    </instancedMesh>
+  );
 };
 
-
 export const Dungeon = () => {
-    return (
-        <>
-            <Walls />
-            <Floor />
-            <Ceiling />
-            <Enemies />
-        </>
-    );
+  return (
+    <>
+      <Walls />
+      <Floor />
+      <Ceiling />
+      <Enemies />
+    </>
+  );
 };

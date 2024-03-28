@@ -3,7 +3,9 @@ import screenReducer from "./screenSlice";
 import playerLocationReducer from "./playerLocationSlice";
 import playerDirectionReducer from "./playerDirectionSlice";
 import dungeonReducer from "./dungeonSlice";
-import informationSlice from "./informationSlice";
+import informationReducer from "./informationSlice";
+import playerHealthReducer from "./playerHealthSlice";
+import currentCombatReducer from "./currentCombatSlice";
 
 export default configureStore({
   reducer: {
@@ -11,6 +13,8 @@ export default configureStore({
     playerLocation: playerLocationReducer,
     playerDirection: playerDirectionReducer,
     dungeon: dungeonReducer,
-    information: informationSlice,
+    information: informationReducer,
+    playerHealth: playerHealthReducer,
+    currentCombat: currentCombatReducer,
   },
 });

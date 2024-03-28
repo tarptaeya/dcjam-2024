@@ -7,12 +7,18 @@ import { vectorForDirection } from "./direction";
 import { Vector3 } from "three";
 import { CELL_ENEMY } from "./grid";
 import { updateInformation } from "./store/informationSlice";
+import { processEnemyAttack } from "./store/playerHealthSlice";
+import { alternateTurn } from "./store/currentCombatSlice";
 
 const Game = () => {
   const { camera } = useThree();
   const playerLocation = useSelector((state) => state.playerLocation.value);
   const playerDirection = useSelector((state) => state.playerDirection.value);
-  const dungeon = useSelector(state => state.dungeon.value);
+  const dungeon = useSelector((state) => state.dungeon.value);
+  const currentCombat = useSelector((state) => state.currentCombat.value);
+  const playerHealth = useSelector((state) => state.playerHealth.value);
+  const { enemyHealth, enemyAttackOptions, playerAttackOptions, playerTurn } =
+    currentCombat;
 
   const dispatch = useDispatch();
 
@@ -37,18 +43,33 @@ const Game = () => {
     const lookAtLocation = nextLocation(playerLocation, playerDirection);
     const lookAtCell = dungeon?.[lookAtLocation[0]]?.[lookAtLocation[1]];
     if (lookAtCell === CELL_ENEMY) {
-      dispatch(updateInformation({ message: 'Mutant bat', isEnemy: true }));
+      dispatch(updateInformation({ message: "Mutant bat", isEnemy: true }));
     } else {
       dispatch(updateInformation({ message: null, isEnemy: false }));
     }
   }, [dungeon, playerLocation, playerDirection]);
+
+  useEffect(() => {
+    if (!playerTurn && currentCombat.isActive && enemyHealth > 0) {
+      const attack = enemyAttackOptions[0];
+      console.log(playerHealth, enemyHealth);
+      setTimeout(() => {
+        dispatch(processEnemyAttack(attack));
+        dispatch(alternateTurn());
+      }, 1000);
+    }
+  }, [playerTurn]);
 
   useFrame(({ clock }) => {
     const position = centeredVectorForLocation(playerLocation);
     camera.position.lerp(position, 0.3);
 
     const deltaPosition = vectorForDirection(playerDirection);
-    const front = new Vector3(camera.position.x + deltaPosition.x, camera.position.y + deltaPosition.y, camera.position.z + deltaPosition.z);
+    const front = new Vector3(
+      camera.position.x + deltaPosition.x,
+      camera.position.y + deltaPosition.y,
+      camera.position.z + deltaPosition.z,
+    );
     camera.lookAt(front);
 
     spotLightRef.current.position.x = camera.position.x;

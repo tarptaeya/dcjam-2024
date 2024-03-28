@@ -3,6 +3,8 @@ import { Canvas } from "@react-three/fiber";
 import Game from "./Game";
 import { useDispatch } from "react-redux";
 import { updateScreen } from "./store/screenSlice";
+import { Compass } from "./components/Compass";
+import { ControlPanel } from "./components/ControlPanel";
 
 export const AboutScreen = () => {
   const dispatch = useDispatch();
@@ -21,9 +23,13 @@ export const AboutScreen = () => {
 
 export const GameScreen = () => {
   return (
-    <Canvas>
-      <Game />
-    </Canvas>
+    <>
+      <Canvas>
+        <Game />
+      </Canvas>
+      <Compass />
+      <ControlPanel />
+    </>
   );
 };
 

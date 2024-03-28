@@ -1,15 +1,20 @@
 import React, { useEffect, useRef } from "react";
 import { Dungeon } from "./components/Dungeon";
 import { useFrame, useThree } from "@react-three/fiber";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { centeredVectorForLocation, nextLocation } from "./location";
 import { vectorForDirection } from "./direction";
 import { Vector3 } from "three";
+import { CELL_ENEMY } from "./grid";
+import { updateInformation } from "./store/informationSlice";
 
 const Game = () => {
   const { camera } = useThree();
   const playerLocation = useSelector((state) => state.playerLocation.value);
   const playerDirection = useSelector((state) => state.playerDirection.value);
+  const dungeon = useSelector(state => state.dungeon.value);
+
+  const dispatch = useDispatch();
 
   const spotLightRef = useRef();
 
@@ -27,6 +32,16 @@ const Game = () => {
     );
     camera.lookAt(front);
   }, []);
+
+  useEffect(() => {
+    const lookAtLocation = nextLocation(playerLocation, playerDirection);
+    const lookAtCell = dungeon?.[lookAtLocation[0]]?.[lookAtLocation[1]];
+    if (lookAtCell === CELL_ENEMY) {
+      dispatch(updateInformation({ message: 'Mutant bat', isEnemy: true }));
+    } else {
+      dispatch(updateInformation({ message: null, isEnemy: false }));
+    }
+  }, [dungeon, playerLocation, playerDirection]);
 
   useFrame(({ clock }) => {
     const position = centeredVectorForLocation(playerLocation);

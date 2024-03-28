@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Matrix4, Object3D, RepeatWrapping, TextureLoader } from "three";
-import { CELL_WALL } from "../grid";
+import { CELL_ENEMY, CELL_WALL } from "../grid";
 import { centeredVectorForLocation } from "../location";
 import { useLoader } from "@react-three/fiber";
 
@@ -81,12 +81,55 @@ const Floor = () => {
 };
 
 
+const Enemies = () => {
+    const mesh = useRef();
+    const dummy = useMemo(() => new Object3D(), []);
+    const dungeon = useSelector((state) => state.dungeon.value);
+
+    const getEnemyLocations = useCallback(() => {
+        const m = dungeon.length;
+        const n = dungeon[0].length;
+        const ans = [];
+        for (let i = 0; i < m; ++i) {
+            for (let j = 0; j < n; ++j) {
+                if (dungeon[i][j] == CELL_ENEMY) {
+                    ans.push([i, j]);
+                }
+            }
+        }
+        return ans;
+    }, [dungeon]);
+
+    const enemyLocations = getEnemyLocations();
+
+    useEffect(() => {
+        enemyLocations.forEach((loc, index) => {
+            const position = centeredVectorForLocation(loc);
+            dummy.position.x = position.x;
+            dummy.position.y = position.y;
+            dummy.position.z = position.z;
+            dummy.scale.set(0.2, 0.2, 0.2);
+            dummy.updateMatrix();
+            mesh.current.setMatrixAt(index, dummy.matrix);
+        });
+    }, [enemyLocations]);
+
+    return (
+        <instancedMesh ref={mesh} args={[null, null, enemyLocations.length]}>
+            <capsuleGeometry args={[1, 1, 8, 16]} />
+            <meshStandardMaterial color={'red'} />
+        </instancedMesh>
+    );
+};
+
+
 export const Dungeon = () => {
     return (
         <>
             <Walls />
             <Floor />
             <Ceiling />
+            <Enemies />
         </>
     );
 };

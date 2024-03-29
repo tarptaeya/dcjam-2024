@@ -43,7 +43,7 @@ const Walls = () => {
   }, [wallLocations]);
 
   return (
-    <instancedMesh ref={mesh} args={[null, null, wallLocations.length]}>
+    <instancedMesh ref={mesh} args={[null, null, wallLocations.length]} frustumCulled={false}>
       <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial map={colorMap} />
     </instancedMesh>
@@ -124,7 +124,7 @@ const Enemies = () => {
   }, [enemyLocations]);
 
   return (
-    <instancedMesh ref={mesh} args={[null, null, enemyLocations.length]}>
+    <instancedMesh ref={mesh} args={[null, null, enemyLocations.length]} frustumCulled={false}>
       <capsuleGeometry args={[1, 1, 8, 16]} />
       <meshStandardMaterial color={"red"} />
     </instancedMesh>

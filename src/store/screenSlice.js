@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const screenSlice = createSlice({
   name: "screen",
   initialState: {
-    value: "welcome",
+    value: "game",
   },
   reducers: {
     updateScreen: (state, action) => {

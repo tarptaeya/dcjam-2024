@@ -38,6 +38,8 @@ const Walls = () => {
       dummy.updateMatrix();
       mesh.current.setMatrixAt(index, dummy.matrix);
     });
+
+    mesh.current.instanceMatrix.needsUpdate = true;
   }, [wallLocations]);
 
   return (
@@ -117,6 +119,8 @@ const Enemies = () => {
       dummy.updateMatrix();
       mesh.current.setMatrixAt(index, dummy.matrix);
     });
+
+    mesh.current.instanceMatrix.needsUpdate = true;
   }, [enemyLocations]);
 
   return (

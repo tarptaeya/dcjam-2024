@@ -9,11 +9,14 @@ import { updateCell } from "../store/dungeonSlice";
 import { getLookAtCell, getLookAtLocation } from "../dungeon";
 import { CELL_ANCIENT_SWORD, CELL_FLOOR } from "../constants";
 import { addItem } from "../store/inventorySlice";
+import { playClickSound } from "../soundUtils";
 
 const StartBattleButton = () => {
     const dispatch = useDispatch();
 
     const onClick = () => {
+        playClickSound();
+
         dispatch(
             startCombat({
                 isActive: true,
@@ -31,6 +34,8 @@ const PickButton = () => {
     const dispatch = useDispatch();
 
     const onClick = () => {
+        playClickSound();
+
         const lookAtLocation = getLookAtLocation();
         const lookAtCell = getLookAtCell();
         dispatch(updateCell({ location: lookAtLocation, cellType: CELL_FLOOR }));

@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 export const getAudioContext = () => {
     const { audioContext } = window.dcjam;
     if (!audioContext) {
@@ -44,3 +46,22 @@ export const playTrack = async filepath => {
 export const playClickSound = () => {
     playTrack('/click.ogg');
 }
+
+
+export const useBackgroundSound = () => {
+    const [source, setSource] = useState(null);
+
+    useEffect(() => {
+        (async function () {
+            const context = getAudioContext();
+            const node = context.createBufferSource();
+            node.buffer = await getAudioBuffer("/background.mp3");
+            node.connect(context.destination);
+            node.loop = true;
+
+            setSource(node);
+        })();
+    }, []);
+
+    return source;
+};

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import Game from "./Game";
 import { useDispatch } from "react-redux";
@@ -23,13 +23,13 @@ export const AboutScreen = () => {
 
 export const GameScreen = () => {
   return (
-    <>
+    <Suspense>
       <Canvas>
         <Game />
       </Canvas>
       <TopPanel />
       <BottomPanel />
-    </>
+    </Suspense>
   );
 };
 

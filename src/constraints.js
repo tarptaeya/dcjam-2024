@@ -1,4 +1,4 @@
-import { CELL_FLOOR } from "./grid";
+import { CELL_FLOOR } from "./constants";
 
 export const canStepOn = (dungeon, location) => {
   const [i, j] = location;

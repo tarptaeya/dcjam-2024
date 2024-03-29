@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { useSelector } from "react-redux";
-import { Matrix4, Object3D, RepeatWrapping, TextureLoader } from "three";
-import { CELL_ENEMY, CELL_WALL } from "../grid";
+import { Object3D, RepeatWrapping, TextureLoader } from "three";
 import { centeredVectorForLocation } from "../location";
 import { useLoader } from "@react-three/fiber";
+import { CELL_ENEMY, CELL_WALL } from "../constants";
 
 const Walls = () => {
   const mesh = useRef();
@@ -15,9 +15,9 @@ const Walls = () => {
   colorMap.wrapT = RepeatWrapping;
   colorMap.repeat.set(3, 3);
 
-  const getWallLocations = useCallback(() => {
-    const m = dungeon.length;
-    const n = dungeon[0].length;
+  const wallLocations = useMemo(() => {
+    const m = dungeon?.length;
+    const n = dungeon?.[0].length;
     const ans = [];
     for (let i = 0; i < m; ++i) {
       for (let j = 0; j < n; ++j) {
@@ -28,8 +28,6 @@ const Walls = () => {
     }
     return ans;
   }, [dungeon]);
-
-  const wallLocations = getWallLocations();
 
   useEffect(() => {
     wallLocations.forEach((loc, index) => {
@@ -95,9 +93,9 @@ const Enemies = () => {
   const dummy = useMemo(() => new Object3D(), []);
   const dungeon = useSelector((state) => state.dungeon.value);
 
-  const getEnemyLocations = useCallback(() => {
-    const m = dungeon.length;
-    const n = dungeon[0].length;
+  const enemyLocations = useMemo(() => {
+    const m = dungeon?.length;
+    const n = dungeon?.[0].length;
     const ans = [];
     for (let i = 0; i < m; ++i) {
       for (let j = 0; j < n; ++j) {
@@ -108,8 +106,6 @@ const Enemies = () => {
     }
     return ans;
   }, [dungeon]);
-
-  const enemyLocations = getEnemyLocations();
 
   useEffect(() => {
     enemyLocations.forEach((loc, index) => {

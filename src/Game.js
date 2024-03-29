@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { centeredVectorForLocation, nextLocation } from "./location";
 import { vectorForDirection } from "./direction";
 import { Vector3 } from "three";
-import { CELL_ENEMY } from "./grid";
+import { getLookAtCell, getLookAtLocation } from "./dungeon";
 import { updateInformation } from "./store/informationSlice";
 import { processEnemyAttack } from "./store/playerHealthSlice";
-import { alternateTurn } from "./store/currentCombatSlice";
+import { alternateTurn, resetCombat } from "./store/currentCombatSlice";
+import { CELL_ENEMY } from "./constants";
+import { killEnemy } from "./store/dungeonSlice";
 
 const Game = () => {
   const { camera } = useThree();
@@ -17,8 +19,6 @@ const Game = () => {
   const dungeon = useSelector((state) => state.dungeon.value);
   const currentCombat = useSelector((state) => state.currentCombat.value);
   const playerHealth = useSelector((state) => state.playerHealth.value);
-  const { enemyHealth, enemyAttackOptions, playerAttackOptions, playerTurn } =
-    currentCombat;
 
   const dispatch = useDispatch();
 
@@ -40,8 +40,7 @@ const Game = () => {
   }, []);
 
   useEffect(() => {
-    const lookAtLocation = nextLocation(playerLocation, playerDirection);
-    const lookAtCell = dungeon?.[lookAtLocation[0]]?.[lookAtLocation[1]];
+    const lookAtCell = getLookAtCell();
     if (lookAtCell === CELL_ENEMY) {
       dispatch(updateInformation({ message: "Mutant bat", isEnemy: true }));
     } else {
@@ -50,7 +49,17 @@ const Game = () => {
   }, [dungeon, playerLocation, playerDirection]);
 
   useEffect(() => {
-    if (!playerTurn && currentCombat.isActive && enemyHealth > 0) {
+    const { playerTurn, enemyHealth, isActive, enemyAttackOptions } = currentCombat;
+    if (!isActive) return;
+
+    if (enemyHealth == 0) {
+      const lookAtLocation = getLookAtLocation();
+      dispatch(resetCombat());
+      dispatch(killEnemy(lookAtLocation));
+      return;
+    }
+
+    if (!playerTurn && enemyHealth > 0) {
       const attack = enemyAttackOptions[0];
 
       setTimeout(() => {
@@ -58,7 +67,7 @@ const Game = () => {
         dispatch(alternateTurn());
       }, 1000);
     }
-  }, [playerTurn]);
+  }, [currentCombat]);
 
   useFrame(({ clock }) => {
     const position = centeredVectorForLocation(playerLocation);

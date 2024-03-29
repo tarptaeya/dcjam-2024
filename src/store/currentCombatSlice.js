@@ -30,9 +30,18 @@ const currentCombatSlice = createSlice({
     alternateTurn: (state) => {
       state.value.playerTurn = !state.value.playerTurn;
     },
+    resetCombat: (state) => {
+      state.value = {
+        isActive: false,
+        enemyHealth: null,
+        playerAttackOptions: [],
+        enemyAttackOptions: [],
+        playerTurn: true,
+      }
+    },
   },
 });
 
-export const { startCombat, processPlayerAttack, alternateTurn } =
+export const { startCombat, processPlayerAttack, alternateTurn, resetCombat } =
   currentCombatSlice.actions;
 export default currentCombatSlice.reducer;

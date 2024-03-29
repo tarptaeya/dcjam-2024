@@ -20,7 +20,7 @@ const StartBattleButton = () => {
         );
     };
 
-    return <button onClick={onClick}>Battle</button>;
+    return <button onClick={onClick} id="start-battle-button">Battle</button>;
 };
 
 const CombatPanel = () => {
@@ -65,8 +65,10 @@ const BottomPanel = () => {
         } else {
             return (
                 <>
-                    <div className="grow">{message}</div>
-                    <div>{isEnemy && <StartBattleButton />}</div>
+                    <div id="bottom-panel-message">{message}</div>
+                    <div id="bottom-panel-action">
+                        {isEnemy && <StartBattleButton />}
+                    </div>
                 </>
             );
         }

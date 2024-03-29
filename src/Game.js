@@ -11,6 +11,7 @@ import { processEnemyAttack } from "./store/playerHealthSlice";
 import { alternateTurn, resetCombat } from "./store/currentCombatSlice";
 import { CELL_ENEMY } from "./constants";
 import { killEnemy } from "./store/dungeonSlice";
+import { Bloom, EffectComposer } from "@react-three/postprocessing";
 
 const Game = () => {
   const { camera } = useThree();
@@ -91,6 +92,10 @@ const Game = () => {
       <ambientLight intensity={0.1} />
       <pointLight ref={spotLightRef} castShadow={true} />
       <Dungeon />
+
+      <EffectComposer>
+        <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
+      </EffectComposer>
     </>
   );
 };

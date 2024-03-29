@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { useSelector } from "react-redux";
-import { Object3D, RepeatWrapping, TextureLoader } from "three";
+import { Euler, Matrix4, Object3D, RepeatWrapping, TextureLoader } from "three";
 import { centeredVectorForLocation } from "../location";
-import { useLoader } from "@react-three/fiber";
-import { CELL_ENEMY, CELL_WALL } from "../constants";
+import { useFrame, useLoader } from "@react-three/fiber";
+import { CELL_ENEMY, CELL_GEM, CELL_WALL } from "../constants";
 
 const Walls = () => {
   const mesh = useRef();
@@ -90,6 +90,7 @@ const Floor = () => {
   );
 };
 
+
 const Enemies = () => {
   const mesh = useRef();
   const dummy = useMemo(() => new Object3D(), []);
@@ -131,6 +132,52 @@ const Enemies = () => {
   );
 };
 
+
+const Gems = () => {
+  const mesh = useRef();
+  const dummy = useMemo(() => new Object3D(), []);
+  const dungeon = useSelector((state) => state.dungeon.value);
+
+  const enemyLocations = useMemo(() => {
+    const m = dungeon?.length;
+    const n = dungeon?.[0].length;
+    const ans = [];
+    for (let i = 0; i < m; ++i) {
+      for (let j = 0; j < n; ++j) {
+        if (dungeon[i][j] == CELL_GEM) {
+          ans.push([i, j]);
+        }
+      }
+    }
+    return ans;
+  }, [dungeon]);
+
+  useFrame(({ clock }) => {
+    enemyLocations.forEach((loc, index) => {
+      const position = centeredVectorForLocation(loc);
+      dummy.position.x = position.x;
+      dummy.position.y = position.y;
+      dummy.position.z = position.z;
+      dummy.scale.set(0.1, 0.1, 0.1);
+      dummy.rotation.x = clock.getElapsedTime();
+      dummy.rotation.y = clock.getElapsedTime();
+      dummy.rotation.z = clock.getElapsedTime();
+      dummy.updateMatrix();
+      mesh.current.setMatrixAt(index, dummy.matrix);
+    });
+
+    mesh.current.instanceMatrix.needsUpdate = true;
+  });
+
+  return (
+    <instancedMesh ref={mesh} args={[null, null, enemyLocations.length]} frustumCulled={false}>
+      <octahedronGeometry args={[1, 0]} />
+      <meshStandardMaterial color={"crimson"} emissive={"red"} emissiveIntensity={2.0} />
+    </instancedMesh>
+  );
+};
+
+
 export const Dungeon = () => {
   return (
     <>
@@ -138,6 +185,7 @@ export const Dungeon = () => {
       <Floor />
       <Ceiling />
       <Enemies />
+      <Gems />
     </>
   );
 };

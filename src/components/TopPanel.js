@@ -4,8 +4,11 @@ import { useSelector } from "react-redux";
 
 const HealthBar = () => {
     const playerHealth = useSelector((state) => state.playerHealth.value);
-    return <div>
-        <progress max={100} value={playerHealth} />
+    return <div id="player-health-bar-container">
+        <div className="health-bar-label">Health</div>
+        <div id="player-health-bar" className="health-bar">
+            <span style={{ width: `${playerHealth}%` }} />
+        </div>
     </div>;
 };
 

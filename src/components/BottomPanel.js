@@ -72,7 +72,7 @@ const BottomPanel = () => {
         }
     };
 
-    return <div id="bottom-panel" className="container fluid row">{getView()}</div>;
+    return <div id="bottom-panel">{getView()}</div>;
 };
 
 export default BottomPanel;

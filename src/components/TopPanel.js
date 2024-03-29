@@ -12,9 +12,25 @@ const HealthBar = () => {
     </div>;
 };
 
+const EnemyHealthBar = () => {
+    const { isActive, enemyHealth } = useSelector((state) => state.currentCombat.value);
+
+    if (!isActive)
+        return <></>;
+
+    return <div id="enemy-health-bar-container">
+        <div className="health-bar-label">Enemy</div>
+        <div id="enemy-health-bar" className="health-bar enemy">
+            <span style={{ width: `${enemyHealth}%` }} />
+        </div>
+    </div>;
+};
+
 const TopPanel = () => {
+    const currentCombat = useSelector((state) => state.currentCombat.value);
+
     return <div id="top-panel">
-        <Compass />
+        {currentCombat.isActive ? <EnemyHealthBar /> : <Compass />}
         <HealthBar />
     </div>
 };

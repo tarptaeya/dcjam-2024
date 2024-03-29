@@ -61,6 +61,15 @@ canvas {
   overflow: hidden;
 }
 
+.health-bar.enemy>span {
+  display: block;
+  height: 100%;
+  background-color: crimson;
+  position: relative;
+  overflow: hidden;
+}
+
+
 .health-bar-label {
   color: white;
   font-weight: bolder;

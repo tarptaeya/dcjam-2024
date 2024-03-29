@@ -9,7 +9,7 @@ import { updateCell } from "../store/dungeonSlice";
 import { getLookAtCell, getLookAtLocation } from "../dungeon";
 import { CELL_ANCIENT_SWORD, CELL_FLOOR } from "../constants";
 import { addItem } from "../store/inventorySlice";
-import { playClickSound } from "../soundUtils";
+import { playClickSound } from "../sound";
 
 const StartBattleButton = () => {
     const dispatch = useDispatch();

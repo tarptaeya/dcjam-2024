@@ -123,7 +123,10 @@ canvas {
 
 .attack-card {
   text-align: center;
+  padding: 22px;
+  color: white;
   background-color: darkviolet;
+  border: 2px solid white;
 }
 
 .attack-card-label {
@@ -134,6 +137,16 @@ canvas {
 
 .attack-card-sublabel {
   font-size: 0.9rem;
+}
+
+.attack-card .use-attack {
+  margin-top: 16px;
+  background-color: rgb(43, 194, 83);
+}
+
+.attack-card .use-attack:disabled {
+  background-color: lightgray;
+  cursor: wait;
 }
 
 #pick-button {

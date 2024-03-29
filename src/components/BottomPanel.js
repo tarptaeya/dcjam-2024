@@ -61,9 +61,10 @@ const CombatPanel = () => {
         };
 
         return (
-            <div key={attack.name} className="attack-card btn" onClick={handleAttack}>
+            <div key={attack.name} className="attack-card">
                 <div className="attack-card-label">{attack.name}</div>
                 <div className="attack-card-sublabel">Damage: {attack.damage}</div>
+                <button className="use-attack btn" onClick={handleAttack} disabled={!playerTurn}>Use</button>
             </div>
         );
     });

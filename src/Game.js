@@ -9,9 +9,8 @@ import { getLookAtCell, getLookAtLocation } from "./dungeon";
 import { updateInformation } from "./store/informationSlice";
 import { processEnemyAttack } from "./store/playerHealthSlice";
 import { alternateTurn, resetCombat } from "./store/currentCombatSlice";
-import { CELL_ENEMY } from "./constants";
-import { killEnemy } from "./store/dungeonSlice";
-import { Bloom, EffectComposer } from "@react-three/postprocessing";
+import { CELL_ANCIENT_SWORD, CELL_ENEMY, CELL_FLOOR } from "./constants";
+import { updateCell } from "./store/dungeonSlice";
 
 const Game = () => {
   const { camera } = useThree();
@@ -42,10 +41,16 @@ const Game = () => {
 
   useEffect(() => {
     const lookAtCell = getLookAtCell();
-    if (lookAtCell === CELL_ENEMY) {
-      dispatch(updateInformation({ message: "Mutant bat", isEnemy: true }));
-    } else {
-      dispatch(updateInformation({ message: null, isEnemy: false }));
+    switch (lookAtCell) {
+      case CELL_ENEMY:
+        dispatch(updateInformation({ message: "Mutant bat", isEnemy: true }));
+        return;
+      case CELL_ANCIENT_SWORD:
+        dispatch(updateInformation({ message: "Ancient sword", isLoot: true, }));
+        return;
+      default:
+        dispatch(updateInformation({ message: null }));
+        return;
     }
   }, [dungeon, playerLocation, playerDirection]);
 
@@ -56,7 +61,7 @@ const Game = () => {
     if (enemyHealth == 0) {
       const lookAtLocation = getLookAtLocation();
       dispatch(resetCombat());
-      dispatch(killEnemy(lookAtLocation));
+      dispatch(updateCell({ location: lookAtLocation, cellType: CELL_FLOOR }));
       return;
     }
 
@@ -93,9 +98,9 @@ const Game = () => {
       <pointLight ref={spotLightRef} castShadow={true} />
       <Dungeon />
 
-      <EffectComposer>
+      {/* <EffectComposer>
         <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
-      </EffectComposer>
+      </EffectComposer> */}
     </>
   );
 };

@@ -5,6 +5,10 @@ import {
     processPlayerAttack,
     startCombat,
 } from "../store/currentCombatSlice";
+import { updateCell } from "../store/dungeonSlice";
+import { getLookAtCell, getLookAtLocation } from "../dungeon";
+import { CELL_ANCIENT_SWORD, CELL_FLOOR } from "../constants";
+import { addItem } from "../store/inventorySlice";
 
 const StartBattleButton = () => {
     const dispatch = useDispatch();
@@ -21,6 +25,26 @@ const StartBattleButton = () => {
     };
 
     return <button onClick={onClick} id="start-battle-button" className="btn">Battle</button>;
+};
+
+const PickButton = () => {
+    const dispatch = useDispatch();
+
+    const onClick = () => {
+        const lookAtLocation = getLookAtLocation();
+        const lookAtCell = getLookAtCell();
+        dispatch(updateCell({ location: lookAtLocation, cellType: CELL_FLOOR }));
+
+        switch (lookAtCell) {
+            case CELL_ANCIENT_SWORD:
+                dispatch(addItem({ name: 'Ancient Sword' }));
+                return;
+            default:
+                return;
+        }
+    };
+
+    return <button onClick={onClick} id="pick-button" className="btn">Pick</button>;
 };
 
 const CombatPanel = () => {
@@ -51,7 +75,7 @@ const BottomPanel = () => {
     const information = useSelector((state) => state.information.value);
     const currentCombat = useSelector((state) => state.currentCombat.value);
 
-    const { message, isEnemy } = information;
+    const { message, isEnemy, isLoot } = information;
 
     const getView = () => {
         if (currentCombat.isActive) {
@@ -62,6 +86,7 @@ const BottomPanel = () => {
                     <div id="bottom-panel-message">{message}</div>
                     <div id="bottom-panel-action">
                         {isEnemy && <StartBattleButton />}
+                        {isLoot && <PickButton />}
                     </div>
                 </>
             );

@@ -7,6 +7,7 @@ import dungeonReducer from "./dungeonSlice";
 import informationReducer from "./informationSlice";
 import playerHealthReducer from "./playerHealthSlice";
 import currentCombatReducer from "./currentCombatSlice";
+import inventoryReducer from './inventorySlice';
 
 export default configureStore({
   reducer: {
@@ -17,5 +18,6 @@ export default configureStore({
     information: informationReducer,
     playerHealth: playerHealthReducer,
     currentCombat: currentCombatReducer,
+    inventory: inventoryReducer,
   },
 });

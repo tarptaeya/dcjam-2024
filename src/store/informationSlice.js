@@ -6,6 +6,7 @@ const informationSlice = createSlice({
     value: {
       message: null,
       isEnemy: false,
+      isLoot: false,
     },
   },
   reducers: {

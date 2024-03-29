@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { useSelector } from "react-redux";
-import { Euler, Matrix4, Object3D, RepeatWrapping, TextureLoader } from "three";
+import { Object3D, RepeatWrapping, TextureLoader } from "three";
 import { centeredVectorForLocation } from "../location";
 import { useFrame, useLoader } from "@react-three/fiber";
 import { CELL_ENEMY, CELL_GEM, CELL_WALL } from "../constants";
+import { getLocationsForCellType } from "../dungeon";
 
 const Walls = () => {
   const mesh = useRef();
@@ -16,17 +17,7 @@ const Walls = () => {
   colorMap.repeat.set(3, 3);
 
   const wallLocations = useMemo(() => {
-    const m = dungeon?.length;
-    const n = dungeon?.[0].length;
-    const ans = [];
-    for (let i = 0; i < m; ++i) {
-      for (let j = 0; j < n; ++j) {
-        if (dungeon[i][j] == CELL_WALL) {
-          ans.push([i, j]);
-        }
-      }
-    }
-    return ans;
+    return getLocationsForCellType(dungeon, CELL_WALL);
   }, [dungeon]);
 
   useEffect(() => {
@@ -138,22 +129,12 @@ const Gems = () => {
   const dummy = useMemo(() => new Object3D(), []);
   const dungeon = useSelector((state) => state.dungeon.value);
 
-  const enemyLocations = useMemo(() => {
-    const m = dungeon?.length;
-    const n = dungeon?.[0].length;
-    const ans = [];
-    for (let i = 0; i < m; ++i) {
-      for (let j = 0; j < n; ++j) {
-        if (dungeon[i][j] == CELL_GEM) {
-          ans.push([i, j]);
-        }
-      }
-    }
-    return ans;
+  const gemsLocations = useMemo(() => {
+    return getLocationsForCellType(dungeon, CELL_GEM);
   }, [dungeon]);
 
   useFrame(({ clock }) => {
-    enemyLocations.forEach((loc, index) => {
+    gemsLocations.forEach((loc, index) => {
       const position = centeredVectorForLocation(loc);
       dummy.position.x = position.x;
       dummy.position.y = position.y;
@@ -170,7 +151,7 @@ const Gems = () => {
   });
 
   return (
-    <instancedMesh ref={mesh} args={[null, null, enemyLocations.length]} frustumCulled={false}>
+    <instancedMesh ref={mesh} args={[null, null, gemsLocations.length]} frustumCulled={false}>
       <octahedronGeometry args={[1, 0]} />
       <meshStandardMaterial color={"crimson"} emissive={"red"} emissiveIntensity={2.0} />
     </instancedMesh>

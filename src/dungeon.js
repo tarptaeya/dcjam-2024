@@ -19,3 +19,17 @@ export const getLookAtCell = () => {
   const lookAtCell = dungeon?.[lookAtLocation[0]]?.[lookAtLocation[1]];
   return lookAtCell;
 }
+
+export const getLocationsForCellType = (dungeon, cellType) => {
+  const m = dungeon?.length;
+  const n = dungeon?.[0].length;
+  const ans = [];
+  for (let i = 0; i < m; ++i) {
+    for (let j = 0; j < n; ++j) {
+      if (dungeon[i][j] == cellType) {
+        ans.push([i, j]);
+      }
+    }
+  }
+  return ans;
+}; 

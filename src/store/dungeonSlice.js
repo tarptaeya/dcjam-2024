@@ -7,12 +7,13 @@ const dungeonSlice = createSlice({
     value: DUNGEON_MAP,
   },
   reducers: {
-    killEnemy: (state, action) => {
-      const [i, j] = action.payload;
-      state.value[i][j] = CELL_FLOOR;
+    updateCell: (state, action) => {
+      const { location, cellType } = action.payload;
+      const [i, j] = location;
+      state.value[i][j] = cellType;
     }
   },
 });
 
-export const { killEnemy } = dungeonSlice.actions;
+export const { killEnemy, updateCell } = dungeonSlice.actions;
 export default dungeonSlice.reducer;

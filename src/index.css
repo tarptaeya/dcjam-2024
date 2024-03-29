@@ -99,19 +99,39 @@ canvas {
   flex: 1;
 }
 
-#start-battle-button {
+.btn {
   top: 0;
   position: relative;
   border: 2px solid white;
   color: white;
-  background-color: crimson;
   font-size: 1rem;
   padding: 8px 22px;
   box-shadow: 0 5px 0 white;
   transition: all 30ms ease-in;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-#start-battle-button:active {
+.btn:active {
   top: 5px;
   box-shadow: 0 0px 0 white;
+}
+
+#start-battle-button {
+  background-color: crimson;
+}
+
+.attack-card {
+  text-align: center;
+  background-color: darkviolet;
+}
+
+.attack-card-label {
+  text-transform: capitalize;
+  font-weight: bolder;
+  margin: 8px;
+}
+
+.attack-card-sublabel {
+  font-size: 0.9rem;
 }

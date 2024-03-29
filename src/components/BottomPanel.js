@@ -20,7 +20,7 @@ const StartBattleButton = () => {
         );
     };
 
-    return <button onClick={onClick} id="start-battle-button">Battle</button>;
+    return <button onClick={onClick} id="start-battle-button" className="btn">Battle</button>;
 };
 
 const CombatPanel = () => {
@@ -31,21 +31,15 @@ const CombatPanel = () => {
     const dispatch = useDispatch();
 
     const optionsCard = playerAttackOptions.map((attack) => {
+        const handleAttack = () => {
+            dispatch(processPlayerAttack(attack));
+            dispatch(alternateTurn());
+        };
+
         return (
-            <div key={attack.name}>
-                <div>{attack.name}</div>
-                <div>{attack.damage}</div>
-                <div>
-                    <button
-                        onClick={() => {
-                            dispatch(processPlayerAttack(attack));
-                            dispatch(alternateTurn());
-                        }}
-                        disabled={!playerTurn}
-                    >
-                        Select
-                    </button>
-                </div>
+            <div key={attack.name} className="attack-card btn" onClick={handleAttack}>
+                <div className="attack-card-label">{attack.name}</div>
+                <div className="attack-card-sublabel">Damage: {attack.damage}</div>
             </div>
         );
     });

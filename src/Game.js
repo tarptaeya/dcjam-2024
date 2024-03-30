@@ -25,6 +25,7 @@ import { updateScreen } from "./store/screenSlice";
 import { setLiftedBackgroundTrackGain } from "./sound";
 import { liftStage, setStageVisible } from "./store/stageSlice";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
+import { decrementPlayerSanity } from "./store/playerSanitySlice";
 
 const Game = () => {
   const { camera, scene } = useThree();
@@ -107,9 +108,17 @@ const Game = () => {
   }, [currentCombat]);
 
   useEffect(() => {
+    let interval = undefined;
     if (isLifted) {
       scene.background = new Color(0, 0, 0);
+      interval = setInterval(() => {
+        dispatch(decrementPlayerSanity(1));
+      }, 2000);
     }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
   }, [isLifted]);
 
   useEffect(() => {

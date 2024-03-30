@@ -49,7 +49,7 @@ const EnemyHealthBar = () => {
     <div id="enemy-health-bar-container">
       <div className="health-bar-label">Enemy</div>
       <div id="enemy-health-bar" className="health-bar enemy">
-        <span style={{ width: `${enemyHealth * 100 / enemyMaxHealth}%` }} />
+        <span style={{ width: `${(enemyHealth * 100) / enemyMaxHealth}%` }} />
       </div>
     </div>
   );
@@ -151,15 +151,25 @@ const Inventory = () => {
                   >
                     <div className="inventory-modal-item-title">{it.name}</div>
                     <div className="inventory-modal-weapon-info">
-                      {!!it.health && <div className="damage">Health +{it.health}</div>}
-                      {!!it.sanity && <div className="damage">Sanity +{it.sanity}</div>}
-                      {!!it.vision && <div className="damage">Vision for {it.vision}s</div>}
+                      {!!it.health && (
+                        <div className="damage">Health +{it.health}</div>
+                      )}
+                      {!!it.sanity && (
+                        <div className="damage">Sanity +{it.sanity}</div>
+                      )}
+                      {!!it.vision && (
+                        <div className="damage">Vision for {it.vision}s</div>
+                      )}
                     </div>
                     <div>
                       <button
                         className="inventory-modal-use-potion btn"
                         onClick={onUsePotion}
-                        disabled={!!it.vision ? !isLifted || (isLifted && isVisible) : false}
+                        disabled={
+                          !!it.vision
+                            ? !isLifted || (isLifted && isVisible)
+                            : false
+                        }
                       >
                         Use
                       </button>

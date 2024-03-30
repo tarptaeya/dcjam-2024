@@ -14,7 +14,7 @@ const stageSlice = createSlice({
     },
     setStageVisible: (state, action) => {
       state.value.isVisible = action.payload;
-    }
+    },
   },
 });
 

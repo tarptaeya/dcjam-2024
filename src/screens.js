@@ -46,19 +46,30 @@ export const WelcomeScreen = () => {
 
   return (
     <div id="welcome-screen">
-      <div id="welcome-screen-title" className="nes-container">
-        <h1>Chintu The Explorer</h1>
-      </div>
-      <div id="welcome-screen-btn-container">
-        <button onClick={navigateToGame} className="is-success">
-          New Game
-        </button>
-        <button onClick={() => { }} className="">
-          Options
-        </button>
-        <button onClick={navigateToAbout} className="">
-          Credits
-        </button>
+      <div id="welcome-screen-container">
+        <div id="welcome-screen-title">
+          <h1>Chintu's Quest: Journey Through the Ancient Cave</h1>
+          <p>
+            Embark on the adventure, guiding the stranded archaeologist through
+            perilous depths, confronting hostile creatures, and unlocking
+            mysterious portals. Can you lead Chintu to safety?
+          </p>
+          <p></p>
+        </div>
+        <div id="welcome-screen-btn-container">
+          <button onClick={navigateToGame} className="btn primary">
+            New Game
+          </button>
+          <button onClick={() => {}} className="btn">
+            Help
+          </button>
+          <button onClick={() => {}} className="btn">
+            Options
+          </button>
+          <button onClick={navigateToAbout} className="btn">
+            Credits
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -84,5 +95,5 @@ export const GameOverScreen = () => {
 };
 
 export const GameWinScreen = () => {
-  return <p>You won!</p>
+  return <p>You won!</p>;
 };

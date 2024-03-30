@@ -15,6 +15,13 @@ const WEAPONS = [
     damage: 2,
     isActive: true,
   },
+  {
+    name: "Magic",
+    description: "For test only",
+    isWeapon: true,
+    damage: 100,
+    isActive: true,
+  },
 ];
 
 const POTIONS = [
@@ -29,7 +36,7 @@ const POTIONS = [
     description: "Vision potion, gives 15s of vision",
     vision: 15,
     isPotion: true,
-  }
+  },
 ];
 
 const inventorySlice = createSlice({

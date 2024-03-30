@@ -77,9 +77,6 @@ const StartBattleButton = () => {
         );
         break;
     }
-
-
-
   };
 
   return (
@@ -115,7 +112,7 @@ const PickButton = () => {
       case CELL_HEALTH_POTION:
         dispatch(
           addItem({
-            name: "Health potion",
+            name: "Super health potion",
             description: "Health potion, refills health",
             health: 100,
             isPotion: true,
@@ -135,7 +132,7 @@ const PickButton = () => {
       case CELL_VISION_POTION:
         dispatch(
           addItem({
-            name: "Vision potion",
+            name: "Super vision potion",
             description: "Vision potion, gives 30s of vision",
             vision: 30,
             isPotion: true,
@@ -146,8 +143,7 @@ const PickButton = () => {
         dispatch(
           addItem({
             name: "Ancient hammer",
-            description:
-              "Ancient hammer. Does 10 damage to enemy",
+            description: "Ancient hammer. Does 10 damage to enemy",
             isWeapon: true,
             damage: 10,
             isActive: false,
@@ -158,8 +154,7 @@ const PickButton = () => {
         dispatch(
           addItem({
             name: "Ancient Spear",
-            description:
-              "Ancient spear. Does 15 damage to enemy",
+            description: "Ancient spear. Does 15 damage to enemy",
             isWeapon: true,
             damage: 15,
             isActive: false,

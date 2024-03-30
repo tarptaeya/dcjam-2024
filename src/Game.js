@@ -39,7 +39,7 @@ const Game = () => {
   const dungeon = useSelector((state) => state.dungeon.value);
   const currentCombat = useSelector((state) => state.currentCombat.value);
   const playerHealth = useSelector((state) => state.playerHealth.value);
-  const playerSanity = useSelector(state => state.playerSanity.value);
+  const playerSanity = useSelector((state) => state.playerSanity.value);
   const stage = useSelector((state) => state.stage.value);
   const { isLifted } = stage;
 
@@ -90,10 +90,10 @@ const Game = () => {
         dispatch(updateInformation({ message: "Guard bat", isEnemy: true }));
         return;
       case CELL_HAMMER:
-        dispatch(updateInformation({ message: 'Hammer', isLoot: true }));
+        dispatch(updateInformation({ message: "Hammer", isLoot: true }));
         return;
       case CELL_SPEAR:
-        dispatch(updateInformation({ message: 'Spear', isLoot: true }));
+        dispatch(updateInformation({ message: "Spear", isLoot: true }));
         return;
       default:
         dispatch(updateInformation({ message: null }));

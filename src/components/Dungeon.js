@@ -3,7 +3,21 @@ import { useSelector } from "react-redux";
 import { Object3D, RepeatWrapping, TextureLoader } from "three";
 import { centeredVectorForLocation } from "../location";
 import { useFrame, useLoader } from "@react-three/fiber";
-import { CELL_ANCIENT_SWORD, CELL_ENEMY, CELL_ENEMY_BABY, CELL_ENEMY_GUARD, CELL_ENEMY_KNIGHT, CELL_GEM, CELL_HAMMER, CELL_HEALTH_POTION, CELL_SANITY_POTION, CELL_SPEAR, CELL_TELEPORT, CELL_VISION_POTION, CELL_WALL } from "../constants";
+import {
+  CELL_ANCIENT_SWORD,
+  CELL_ENEMY,
+  CELL_ENEMY_BABY,
+  CELL_ENEMY_GUARD,
+  CELL_ENEMY_KNIGHT,
+  CELL_GEM,
+  CELL_HAMMER,
+  CELL_HEALTH_POTION,
+  CELL_SANITY_POTION,
+  CELL_SPEAR,
+  CELL_TELEPORT,
+  CELL_VISION_POTION,
+  CELL_WALL,
+} from "../constants";
 import { getLocationsForCellType } from "../dungeon";
 
 const Walls = () => {
@@ -131,24 +145,42 @@ const createBillboardComponent = (type, texture) => {
         frustumCulled={false}
       >
         <planeGeometry />
-        <meshStandardMaterial map={colorMap} transparent={true} alphaTest={.2} />
+        <meshStandardMaterial
+          map={colorMap}
+          transparent={true}
+          alphaTest={0.2}
+        />
       </instancedMesh>
     );
-  }
+  };
 };
 
+const BabyEnemies = createBillboardComponent(CELL_ENEMY_BABY, "./bat-1.png");
+const KnightEnemies = createBillboardComponent(
+  CELL_ENEMY_KNIGHT,
+  "./bat-3.png",
+);
+const GuardEnemies = createBillboardComponent(CELL_ENEMY_GUARD, "./bat-4.png");
 
-const BabyEnemies = createBillboardComponent(CELL_ENEMY_BABY, './bat-1.png');
-const KnightEnemies = createBillboardComponent(CELL_ENEMY_KNIGHT, './bat-3.png');
-const GuardEnemies = createBillboardComponent(CELL_ENEMY_GUARD, './bat-4.png');
+const HammerBillboard = createBillboardComponent(CELL_HAMMER, "./hammer.png");
+const SwordBillboard = createBillboardComponent(
+  CELL_ANCIENT_SWORD,
+  "./sword.png",
+);
+const SpearBillboard = createBillboardComponent(CELL_SPEAR, "./spear.png");
 
-const HammerBillboard = createBillboardComponent(CELL_HAMMER, './hammer.png');
-const SwordBillboard = createBillboardComponent(CELL_ANCIENT_SWORD, './sword.png');
-const SpearBillboard = createBillboardComponent(CELL_SPEAR, './spear.png');
-
-const VisionPotion = createBillboardComponent(CELL_VISION_POTION, './vision-potion.png');
-const HealthPotion = createBillboardComponent(CELL_HEALTH_POTION, './health-potion.png');
-const SanityPotion = createBillboardComponent(CELL_SANITY_POTION, './sanity-potion.png');
+const VisionPotion = createBillboardComponent(
+  CELL_VISION_POTION,
+  "./vision-potion.png",
+);
+const HealthPotion = createBillboardComponent(
+  CELL_HEALTH_POTION,
+  "./health-potion.png",
+);
+const SanityPotion = createBillboardComponent(
+  CELL_SANITY_POTION,
+  "./sanity-potion.png",
+);
 
 const Gems = () => {
   const mesh = useRef();
@@ -227,21 +259,23 @@ const Teleporter = () => {
       frustumCulled={false}
     >
       <torusKnotGeometry args={[10, 3, 100, 16]} />
-      {!isLifted && <meshStandardMaterial
-        color={"crimson"}
-        emissive={"red"}
-        emissiveIntensity={2.0}
-      />}
-      {isLifted && <meshStandardMaterial
-        color={"blueviolet"}
-        emissive={"blueviolet"}
-        emissiveIntensity={2.0}
-        depthTest={false}
-      />}
+      {!isLifted && (
+        <meshStandardMaterial
+          color={"crimson"}
+          emissive={"red"}
+          emissiveIntensity={2.0}
+        />
+      )}
+      {isLifted && (
+        <meshStandardMaterial
+          color={"blueviolet"}
+          emissive={"blueviolet"}
+          emissiveIntensity={2.0}
+        />
+      )}
     </instancedMesh>
   );
 };
-
 
 export const Dungeon = () => {
   const stage = useSelector((state) => state.stage.value);
@@ -249,11 +283,13 @@ export const Dungeon = () => {
 
   return (
     <>
-      {isVisible && <>
-        <Walls />
-        <Floor />
-        <Ceiling />
-      </>}
+      {isVisible && (
+        <>
+          <Walls />
+          <Floor />
+          <Ceiling />
+        </>
+      )}
       <BabyEnemies />
       <KnightEnemies />
       <GuardEnemies />

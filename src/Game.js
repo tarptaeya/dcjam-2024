@@ -11,7 +11,6 @@ import { processEnemyAttack } from "./store/playerHealthSlice";
 import { alternateTurn, resetCombat } from "./store/currentCombatSlice";
 import { CELL_ANCIENT_SWORD, CELL_ENEMY, CELL_FLOOR } from "./constants";
 import { updateCell } from "./store/dungeonSlice";
-import { useBackgroundSound } from "./sound";
 
 const Game = () => {
   const { camera } = useThree();
@@ -20,8 +19,6 @@ const Game = () => {
   const dungeon = useSelector((state) => state.dungeon.value);
   const currentCombat = useSelector((state) => state.currentCombat.value);
   const playerHealth = useSelector((state) => state.playerHealth.value);
-
-  const backgroundSound = useBackgroundSound();
 
   const dispatch = useDispatch();
 
@@ -77,14 +74,6 @@ const Game = () => {
       }, 1000);
     }
   }, [currentCombat]);
-
-  useEffect(() => {
-    if (!backgroundSound) {
-      return;
-    }
-
-    backgroundSound.start();
-  }, [backgroundSound, currentCombat]);
 
   useFrame(({ clock }) => {
     const position = centeredVectorForLocation(playerLocation);

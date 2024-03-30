@@ -48,20 +48,18 @@ export const playClickSound = () => {
 }
 
 
-export const useBackgroundSound = () => {
-    const [source, setSource] = useState(null);
+export const startBackgroundTrack = async filepath => {
+    if (!!window.dcjam.currentBackgroundTrack) {
+        const track = window.dcjam.currentBackgroundTrack;
+        track?.stop();
+        window.dcjam.currentBackgroundTrack = null;
+    }
 
-    useEffect(() => {
-        (async function () {
-            const context = getAudioContext();
-            const node = context.createBufferSource();
-            node.buffer = await getAudioBuffer("/background.mp3");
-            node.connect(context.destination);
-            node.loop = true;
-
-            setSource(node);
-        })();
-    }, []);
-
-    return source;
+    const context = getAudioContext();
+    const node = context.createBufferSource();
+    node.buffer = await getAudioBuffer(filepath);
+    node.connect(context.destination);
+    node.loop = true;
+    window.dcjam.currentBackgroundTrack = node;
+    node.start();
 };

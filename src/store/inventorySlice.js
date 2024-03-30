@@ -26,13 +26,18 @@ const inventorySlice = createSlice({
       state.value.isOpen = !state.value.isOpen;
     },
     toggleItemSelection: (state, action) => {
-      console.log(action);
       const item = state.value.items.find((it) => it.name === action.payload);
       item.isActive = !item.isActive;
+    },
+    removeItem: (state, action) => {
+      const item = state.value.items.find((it) => it.name === action.payload);
+      state.value.items = state.value.items.filter(
+        (it) => it.name !== item.name,
+      );
     },
   },
 });
 
-export const { addItem, toggleShowInventory, toggleItemSelection } =
+export const { addItem, toggleShowInventory, toggleItemSelection, removeItem } =
   inventorySlice.actions;
 export default inventorySlice.reducer;

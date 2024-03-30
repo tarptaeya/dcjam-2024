@@ -9,7 +9,12 @@ import { getLookAtCell, getLookAtLocation } from "./dungeon";
 import { updateInformation } from "./store/informationSlice";
 import { processEnemyAttack } from "./store/playerHealthSlice";
 import { alternateTurn, resetCombat } from "./store/currentCombatSlice";
-import { CELL_ANCIENT_SWORD, CELL_ENEMY, CELL_FLOOR } from "./constants";
+import {
+  CELL_ANCIENT_SWORD,
+  CELL_ENEMY,
+  CELL_FLOOR,
+  CELL_HEALTH_POTION,
+} from "./constants";
 import { updateCell } from "./store/dungeonSlice";
 import { updateScreen } from "./store/screenSlice";
 
@@ -48,6 +53,9 @@ const Game = () => {
         return;
       case CELL_ANCIENT_SWORD:
         dispatch(updateInformation({ message: "Ancient sword", isLoot: true }));
+        return;
+      case CELL_HEALTH_POTION:
+        dispatch(updateInformation({ message: "Health potion", isLoot: true }));
         return;
       default:
         dispatch(updateInformation({ message: null }));

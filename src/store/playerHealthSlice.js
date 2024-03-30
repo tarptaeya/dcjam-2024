@@ -16,9 +16,15 @@ const playerHealthSlice = createSlice({
         state.value = 0;
       }
     },
+    incrementPlayerHealth: (state, action) => {
+      state.value += action.payload;
+      if (state.value > 100) {
+        state.value = 100;
+      }
+    },
   },
 });
 
-export const { updatePlayerHealth, processEnemyAttack } =
+export const { updatePlayerHealth, processEnemyAttack, incrementPlayerHealth } =
   playerHealthSlice.actions;
 export default playerHealthSlice.reducer;

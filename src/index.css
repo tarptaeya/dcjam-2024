@@ -177,22 +177,40 @@ canvas {
 }
 
 #inventory-modal {
-  min-width: 500px;
+  width: 500px;
+  height: 70%;
   border: 2px solid white;
   background-color: #404244;
   color: white;
-  padding: 22px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
+#inventory-tab-bar {
+  display: flex;
+  background-color: #121212;
+}
+
+#inventory-tab-bar > div {
+  padding: 22px;
+}
+
+#inventory-tab-bar > div:hover {
+}
+
+#inventory-tab-bar > div.active {
+  background-color: #404244;
+}
+
 #inventory-modal-items-grid {
+  padding: 22px;
   display: grid;
   gap: 22px;
   grid-template-columns: repeat(3, 1fr);
   margin-top: 22px;
   margin-bottom: 22px;
+  overflow: auto;
 }
 
 .inventory-modal-item {
@@ -234,6 +252,7 @@ canvas {
 #inventory-modal-footer {
   display: flex;
   align-items: center;
+  padding: 22px;
 }
 
 #inventory-modal-footer > div {
@@ -242,6 +261,11 @@ canvas {
 
 #inventory-modal-close-button {
   background-color: crimson;
+}
+
+.inventory-modal-use-potion {
+  background-color: rgb(43, 194, 83);
+  margin-top: 16px;
 }
 
 .attack-card-container {
@@ -284,4 +308,8 @@ canvas {
 
 #game-over-screen-actions button {
   background-color: blueviolet;
+}
+
+.spacer {
+  flex: 1;
 }

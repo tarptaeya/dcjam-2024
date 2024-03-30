@@ -3,9 +3,11 @@ import { Compass } from "./Compass";
 import { useDispatch, useSelector } from "react-redux";
 import { playClickSound } from "../sound";
 import {
+  removeItem,
   toggleItemSelection,
   toggleShowInventory,
 } from "../store/inventorySlice";
+import { incrementPlayerHealth } from "../store/playerHealthSlice";
 
 const HealthBar = () => {
   const playerHealth = useSelector((state) => state.playerHealth.value);
@@ -41,10 +43,13 @@ const Inventory = () => {
   const currentCombat = useSelector((state) => state.currentCombat.value);
   const { isOpen } = inventory;
 
+  const [currentTab, setCurrentTab] = useState("weapons");
+
   const dispatch = useDispatch();
 
   const getModal = () => {
     const weapons = inventory.items.filter((it) => it.isWeapon);
+    const potions = inventory.items.filter((it) => it.isPotion);
 
     const closeModal = () => {
       playClickSound();
@@ -54,30 +59,84 @@ const Inventory = () => {
     return (
       <div id="inventory-modal-container">
         <div id="inventory-modal">
-          <h2>My bag</h2>
-          <div id="inventory-modal-items-grid">
-            {weapons.map((it) => {
-              const onClickItem = () => {
+          <div id="inventory-tab-bar">
+            <div
+              onClick={() => {
                 playClickSound();
-                dispatch(toggleItemSelection(it.name));
-              };
-
-              return (
-                <div
-                  key={it.name}
-                  className={`inventory-modal-item inventory-modal-weapon-item ${it.isActive ? "inventory-modal-weapon-active" : ""}`}
-                  title={it.description}
-                  onClick={onClickItem}
-                >
-                  {it.isActive && <span className="ribbon"></span>}
-                  <div className="inventory-modal-item-title">{it.name}</div>
-                  <div className="inventory-modal-weapon-info">
-                    <div className="damage">Damage {it.damage}</div>
-                  </div>
-                </div>
-              );
-            })}
+                setCurrentTab("weapons");
+              }}
+              className={currentTab === "weapons" ? "active" : ""}
+            >
+              Weapons
+            </div>
+            <div
+              onClick={() => {
+                playClickSound();
+                setCurrentTab("potions");
+              }}
+              className={currentTab === "potions" ? "active" : ""}
+            >
+              Potions
+            </div>
           </div>
+          <div id="inventory-modal-items-grid">
+            {currentTab === "weapons" &&
+              weapons.map((it) => {
+                const onClickItem = () => {
+                  playClickSound();
+                  dispatch(toggleItemSelection(it.name));
+                };
+
+                return (
+                  <div
+                    key={it.name}
+                    className={`inventory-modal-item inventory-modal-weapon-item ${it.isActive ? "inventory-modal-weapon-active" : ""}`}
+                    title={it.description}
+                    onClick={onClickItem}
+                  >
+                    {it.isActive && <span className="ribbon"></span>}
+                    <div className="inventory-modal-item-title">{it.name}</div>
+                    <div className="inventory-modal-weapon-info">
+                      <div className="damage">Damage {it.damage}</div>
+                    </div>
+                  </div>
+                );
+              })}
+
+            {currentTab === "potions" &&
+              potions.map((it) => {
+                const onUsePotion = () => {
+                  playClickSound();
+                  dispatch(removeItem(it.name));
+                  dispatch(incrementPlayerHealth(it.health));
+                };
+
+                return (
+                  <div
+                    key={it.name}
+                    className={
+                      "inventory-modal-item inventory-modal-potion-item"
+                    }
+                    title={it.description}
+                  >
+                    <div className="inventory-modal-item-title">{it.name}</div>
+                    <div className="inventory-modal-weapon-info">
+                      <div className="damage">Health +{it.health}</div>
+                    </div>
+                    <div>
+                      <button
+                        className="inventory-modal-use-potion btn"
+                        onClick={onUsePotion}
+                      >
+                        Use
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+
+          <div class="spacer" />
 
           <div id="inventory-modal-footer">
             <div>*You can only select upto 3 weapons</div>

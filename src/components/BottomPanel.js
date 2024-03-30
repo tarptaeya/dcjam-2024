@@ -7,7 +7,11 @@ import {
 } from "../store/currentCombatSlice";
 import { updateCell } from "../store/dungeonSlice";
 import { getLookAtCell, getLookAtLocation } from "../dungeon";
-import { CELL_ANCIENT_SWORD, CELL_FLOOR } from "../constants";
+import {
+  CELL_ANCIENT_SWORD,
+  CELL_FLOOR,
+  CELL_HEALTH_POTION,
+} from "../constants";
 import { addItem } from "../store/inventorySlice";
 import { playClickSound } from "../sound";
 
@@ -53,6 +57,16 @@ const PickButton = () => {
             isWeapon: true,
             damage: 20,
             isActive: false,
+          }),
+        );
+        return;
+      case CELL_HEALTH_POTION:
+        dispatch(
+          addItem({
+            name: "Health potion",
+            description: "Health potion, +30 health",
+            health: 20,
+            isPotion: true,
           }),
         );
         return;

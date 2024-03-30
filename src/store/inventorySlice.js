@@ -8,6 +8,28 @@ const WEAPONS = [
     damage: 5,
     isActive: true,
   },
+  {
+    name: "slap",
+    description: "Slap the enemy real hard.",
+    isWeapon: true,
+    damage: 2,
+    isActive: true,
+  },
+];
+
+const POTIONS = [
+  {
+    name: "Health potion",
+    description: "Health potion, gives +20 health",
+    health: 20,
+    isPotion: true,
+  },
+  {
+    name: "Vision potion",
+    description: "Vision potion, gives 5s of vision",
+    vision: 5,
+    isPotion: true,
+  }
 ];
 
 const inventorySlice = createSlice({
@@ -15,7 +37,7 @@ const inventorySlice = createSlice({
   initialState: {
     value: {
       isOpen: false,
-      items: [...WEAPONS],
+      items: [...WEAPONS, ...POTIONS],
     },
   },
   reducers: {

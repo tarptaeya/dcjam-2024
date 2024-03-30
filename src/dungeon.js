@@ -31,3 +31,11 @@ export const getLocationsForCellType = (dungeon, cellType) => {
   }
   return ans;
 };
+
+export const getCurrentCell = () => {
+  const state = store.getState();
+  const dungeon = state.dungeon.value;
+  const playerLocation = state.playerLocation.value;
+  const cell = dungeon?.[playerLocation[0]]?.[playerLocation[1]];
+  return cell;
+};

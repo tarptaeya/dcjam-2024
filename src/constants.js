@@ -5,6 +5,8 @@ export const CELL_GEM = 3;
 export const CELL_ANCIENT_SWORD = 4;
 export const CELL_HEALTH_POTION = 5;
 export const CELL_SANITY_POTION = 6;
+export const CELL_TELEPORT = 7;
+
 
 export const DUNGEON_MAP = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -13,7 +15,7 @@ export const DUNGEON_MAP = [
   [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 6, 0, 1],
   [1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 4, 1, 1, 0, 1],
   [1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 2, 0, 1],
   [1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1],
   [1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1],
   [1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1],

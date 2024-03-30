@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { centeredVectorForLocation, nextLocation } from "./location";
 import { vectorForDirection } from "./direction";
 import { Color, Vector3 } from "three";
-import { getLookAtCell, getLookAtLocation } from "./dungeon";
+import { getCurrentCell, getLookAtCell, getLookAtLocation } from "./dungeon";
 import { updateInformation } from "./store/informationSlice";
 import { processEnemyAttack } from "./store/playerHealthSlice";
 import { alternateTurn, resetCombat } from "./store/currentCombatSlice";
@@ -15,11 +15,14 @@ import {
   CELL_FLOOR,
   CELL_HEALTH_POTION,
   CELL_SANITY_POTION,
+  CELL_TELEPORT,
   CELL_WALL,
 } from "./constants";
 import { updateCell } from "./store/dungeonSlice";
 import { updateScreen } from "./store/screenSlice";
 import { setLiftedBackgroundTrackGain } from "./sound";
+import { liftStage } from "./store/stageSlice";
+import { Bloom, EffectComposer } from "@react-three/postprocessing";
 
 const Game = () => {
   const { camera, scene } = useThree();
@@ -115,6 +118,18 @@ const Game = () => {
     }
   }, [isLifted, dungeon, playerLocation, playerDirection]);
 
+  useEffect(() => {
+    const cellType = getCurrentCell();
+    if (isLifted) {
+
+    } else {
+      if (cellType === CELL_TELEPORT) {
+        dispatch(liftStage());
+        // TODO also reset the dungeon
+      }
+    }
+  }, [playerLocation, isLifted]);
+
   useFrame(({ clock }) => {
     const position = centeredVectorForLocation(playerLocation);
     camera.position.lerp(position, 0.3);
@@ -138,9 +153,9 @@ const Game = () => {
       <pointLight ref={spotLightRef} castShadow={true} />
       <Dungeon />
 
-      {/* <EffectComposer>
+      <EffectComposer>
         <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
-      </EffectComposer> */}
+      </EffectComposer>
     </>
   );
 };

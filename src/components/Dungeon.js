@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Object3D, RepeatWrapping, TextureLoader } from "three";
 import { centeredVectorForLocation } from "../location";
 import { useFrame, useLoader } from "@react-three/fiber";
-import { CELL_ENEMY, CELL_GEM, CELL_WALL } from "../constants";
+import { CELL_ENEMY, CELL_GEM, CELL_TELEPORT, CELL_WALL } from "../constants";
 import { getLocationsForCellType } from "../dungeon";
 
 const Walls = () => {
@@ -177,6 +177,49 @@ const Gems = () => {
   );
 };
 
+const Teleporter = () => {
+  const mesh = useRef();
+  const dummy = useMemo(() => new Object3D(), []);
+  const dungeon = useSelector((state) => state.dungeon.value);
+
+  const locations = useMemo(() => {
+    return getLocationsForCellType(dungeon, CELL_TELEPORT);
+  }, [dungeon]);
+
+  useFrame(({ clock }) => {
+    locations.forEach((loc, index) => {
+      const position = centeredVectorForLocation(loc);
+      dummy.position.x = position.x;
+      dummy.position.y = position.y;
+      dummy.position.z = position.z;
+      dummy.scale.set(0.01, 0.01, 0.01);
+      dummy.rotation.x = clock.getElapsedTime();
+      dummy.rotation.y = clock.getElapsedTime();
+      dummy.rotation.z = clock.getElapsedTime();
+      dummy.updateMatrix();
+      mesh.current.setMatrixAt(index, dummy.matrix);
+    });
+
+    mesh.current.instanceMatrix.needsUpdate = true;
+  });
+
+  return (
+    <instancedMesh
+      ref={mesh}
+      args={[null, null, locations.length]}
+      frustumCulled={false}
+    >
+      <torusKnotGeometry args={[10, 3, 100, 16]} />
+      <meshStandardMaterial
+        color={"crimson"}
+        emissive={"red"}
+        emissiveIntensity={2.0}
+      />
+    </instancedMesh>
+  );
+};
+
+
 export const Dungeon = () => {
   const stage = useSelector((state) => state.stage.value);
   const { isLifted } = stage;
@@ -188,6 +231,7 @@ export const Dungeon = () => {
       {!isLifted && <Ceiling />}
       <Enemies />
       <Gems />
+      <Teleporter />
     </>
   );
 };

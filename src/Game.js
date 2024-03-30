@@ -19,6 +19,7 @@ import {
   CELL_HAMMER,
   CELL_HEALTH_POTION,
   CELL_SANITY_POTION,
+  CELL_SPEAR,
   CELL_TELEPORT,
   CELL_VISION_POTION,
   CELL_WALL,
@@ -90,6 +91,9 @@ const Game = () => {
         return;
       case CELL_HAMMER:
         dispatch(updateInformation({ message: 'Hammer', isLoot: true }));
+        return;
+      case CELL_SPEAR:
+        dispatch(updateInformation({ message: 'Spear', isLoot: true }));
         return;
       default:
         dispatch(updateInformation({ message: null }));

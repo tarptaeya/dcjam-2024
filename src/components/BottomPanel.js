@@ -17,6 +17,7 @@ import {
   CELL_HAMMER,
   CELL_HEALTH_POTION,
   CELL_SANITY_POTION,
+  CELL_SPEAR,
   CELL_VISION_POTION,
 } from "../constants";
 import { addItem, toggleShowInventory } from "../store/inventorySlice";
@@ -115,8 +116,8 @@ const PickButton = () => {
         dispatch(
           addItem({
             name: "Health potion",
-            description: "Health potion, +20 health",
-            health: 20,
+            description: "Health potion, refills health",
+            health: 100,
             isPotion: true,
           }),
         );
@@ -149,6 +150,18 @@ const PickButton = () => {
               "Ancient hammer. Does 10 damage to enemy",
             isWeapon: true,
             damage: 10,
+            isActive: false,
+          }),
+        );
+        return;
+      case CELL_SPEAR:
+        dispatch(
+          addItem({
+            name: "Ancient Spear",
+            description:
+              "Ancient spear. Does 15 damage to enemy",
+            isWeapon: true,
+            damage: 15,
             isActive: false,
           }),
         );

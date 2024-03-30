@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Object3D, RepeatWrapping, TextureLoader } from "three";
 import { centeredVectorForLocation } from "../location";
 import { useFrame, useLoader } from "@react-three/fiber";
-import { CELL_ENEMY, CELL_ENEMY_BABY, CELL_ENEMY_GUARD, CELL_ENEMY_KNIGHT, CELL_GEM, CELL_TELEPORT, CELL_WALL } from "../constants";
+import { CELL_ANCIENT_SWORD, CELL_ENEMY, CELL_ENEMY_BABY, CELL_ENEMY_GUARD, CELL_ENEMY_KNIGHT, CELL_GEM, CELL_HAMMER, CELL_HEALTH_POTION, CELL_SANITY_POTION, CELL_SPEAR, CELL_TELEPORT, CELL_VISION_POTION, CELL_WALL } from "../constants";
 import { getLocationsForCellType } from "../dungeon";
 
 const Walls = () => {
@@ -40,7 +40,7 @@ const Walls = () => {
       frustumCulled={false}
     >
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial map={colorMap} />
+      <meshLambertMaterial map={colorMap} />
     </instancedMesh>
   );
 };
@@ -85,7 +85,7 @@ const Floor = () => {
   );
 };
 
-const createEnemyComponent = (type, texture) => {
+const createBillboardComponent = (type, texture) => {
   return () => {
     const mesh = useRef();
     const dummy = useMemo(() => new Object3D(), []);
@@ -138,11 +138,17 @@ const createEnemyComponent = (type, texture) => {
 };
 
 
-const BabyEnemies = createEnemyComponent(CELL_ENEMY_BABY, './bat-1.png');
-const KnightEnemies = createEnemyComponent(CELL_ENEMY_KNIGHT, './bat-3.png');
-const GuardEnemies = createEnemyComponent(CELL_ENEMY_GUARD, './bat-4.png');
+const BabyEnemies = createBillboardComponent(CELL_ENEMY_BABY, './bat-1.png');
+const KnightEnemies = createBillboardComponent(CELL_ENEMY_KNIGHT, './bat-3.png');
+const GuardEnemies = createBillboardComponent(CELL_ENEMY_GUARD, './bat-4.png');
 
+const HammerBillboard = createBillboardComponent(CELL_HAMMER, './hammer.png');
+const SwordBillboard = createBillboardComponent(CELL_ANCIENT_SWORD, './sword.png');
+const SpearBillboard = createBillboardComponent(CELL_SPEAR, './spear.png');
 
+const VisionPotion = createBillboardComponent(CELL_VISION_POTION, './vision-potion.png');
+const HealthPotion = createBillboardComponent(CELL_HEALTH_POTION, './health-potion.png');
+const SanityPotion = createBillboardComponent(CELL_SANITY_POTION, './sanity-potion.png');
 
 const Gems = () => {
   const mesh = useRef();
@@ -251,6 +257,15 @@ export const Dungeon = () => {
       <KnightEnemies />
       <GuardEnemies />
       <Gems />
+
+      <HammerBillboard />
+      <SpearBillboard />
+      <SwordBillboard />
+
+      <SanityPotion />
+      <VisionPotion />
+      <HealthPotion />
+
       <Teleporter />
     </>
   );

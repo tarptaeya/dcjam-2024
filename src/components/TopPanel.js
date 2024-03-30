@@ -80,6 +80,7 @@ const Inventory = () => {
           </div>
 
           <div id="inventory-modal-footer">
+            <div>*You can only select upto 3 weapons</div>
             <button
               id="inventory-modal-close-button"
               className="btn"

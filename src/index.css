@@ -59,7 +59,7 @@ canvas {
   width: 200px;
 }
 
-.health-bar > span {
+.health-bar>span {
   display: block;
   height: 100%;
   background-color: rgb(43, 194, 83);
@@ -67,7 +67,7 @@ canvas {
   overflow: hidden;
 }
 
-.health-bar.enemy > span {
+.health-bar.enemy>span {
   display: block;
   height: 100%;
   background-color: crimson;
@@ -220,7 +220,7 @@ canvas {
   overflow: hidden;
 }
 
-.inventory-modal-weapon-active > span.ribbon {
+.inventory-modal-weapon-active>span.ribbon {
   width: 43px;
   height: 23px;
   background-color: rgb(43, 194, 83);
@@ -232,11 +232,17 @@ canvas {
 }
 
 #inventory-modal-footer {
+  display: flex;
+  align-items: center;
 }
+
+#inventory-modal-footer>div {
+  flex: 1;
+}
+
 
 #inventory-modal-close-button {
   background-color: crimson;
-  float: right;
 }
 
 .attack-card-container {

@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Compass } from "./Compass";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { playClickSound } from "../sound";
+import { toggleItemSelection, toggleShowInventory } from "../store/inventorySlice";
 
 const HealthBar = () => {
     const playerHealth = useSelector((state) => state.playerHealth.value);
@@ -26,12 +28,69 @@ const EnemyHealthBar = () => {
     </div>;
 };
 
+const Inventory = () => {
+    const inventory = useSelector(state => state.inventory.value);
+    const { isOpen } = inventory;
+
+    const dispatch = useDispatch();
+
+    const getModal = () => {
+        const weapons = inventory.items.filter(it => it.isWeapon);
+
+        const closeModal = () => {
+            playClickSound();
+            dispatch(toggleShowInventory());
+        };
+
+        return <div id="inventory-modal-container">
+            <div id="inventory-modal">
+                <h2>My bag</h2>
+                <div id="inventory-modal-items-grid">
+                    {weapons.map((it) => {
+                        const onClickItem = () => {
+                            playClickSound();
+                            dispatch(toggleItemSelection(it.name));
+                        };
+
+                        return <div key={it.name}
+                            className={`inventory-modal-item inventory-modal-weapon-item ${it.isActive ? 'inventory-modal-weapon-active' : ''}`} title={it.description}
+                            onClick={onClickItem}>
+                            {it.isActive && <span className="ribbon"></span>}
+                            <div className="inventory-modal-item-title">{it.name}</div>
+                            <div className="inventory-modal-weapon-info">
+                                <div className="damage">Damage {it.damage}</div>
+                            </div>
+                        </div>
+                    })}
+                </div>
+
+                <div id="inventory-modal-footer">
+                    <button id="inventory-modal-close-button" className="btn" onClick={closeModal}>Ok</button>
+                </div>
+            </div>
+        </div>;
+    };
+
+    const onBagButtonClick = () => {
+        playClickSound();
+        dispatch(toggleShowInventory());
+    };
+
+    return <>
+        <button id="inventory-button" className="btn" onClick={onBagButtonClick}>Bag</button>
+        {isOpen && getModal()}
+    </>;
+};
+
 const TopPanel = () => {
     const currentCombat = useSelector((state) => state.currentCombat.value);
 
     return <div id="top-panel">
         {currentCombat.isActive ? <EnemyHealthBar /> : <Compass />}
-        <HealthBar />
+        <div>
+            <HealthBar />
+            <Inventory />
+        </div>
     </div>
 };
 

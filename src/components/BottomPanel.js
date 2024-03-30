@@ -42,7 +42,13 @@ const PickButton = () => {
 
         switch (lookAtCell) {
             case CELL_ANCIENT_SWORD:
-                dispatch(addItem({ name: 'Ancient Sword' }));
+                dispatch(addItem({
+                    name: 'Ancient rusty sword',
+                    description: 'Ancient sword made up of iron. Does 20 damage to enemy',
+                    isWeapon: true,
+                    damage: 20,
+                    isActive: false,
+                }));
                 return;
             default:
                 return;

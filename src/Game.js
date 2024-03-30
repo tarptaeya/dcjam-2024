@@ -122,7 +122,9 @@ const Game = () => {
   useEffect(() => {
     const cellType = getCurrentCell();
     if (isLifted) {
-
+      if (cellType === CELL_TELEPORT) {
+        dispatch(updateScreen("gamewin"));
+      }
     } else {
       if (cellType === CELL_TELEPORT) {
         dispatch(liftStage());

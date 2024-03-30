@@ -53,7 +53,7 @@ export const WelcomeScreen = () => {
         <button onClick={navigateToGame} className="is-success">
           New Game
         </button>
-        <button onClick={() => {}} className="">
+        <button onClick={() => { }} className="">
           Options
         </button>
         <button onClick={navigateToAbout} className="">
@@ -81,4 +81,8 @@ export const GameOverScreen = () => {
       </div>
     </div>
   );
+};
+
+export const GameWinScreen = () => {
+  return <p>You won!</p>
 };

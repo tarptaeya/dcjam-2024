@@ -4,6 +4,7 @@ import {
   AboutScreen,
   GameScreen,
   GameOverScreen,
+  GameWinScreen,
 } from "./screens";
 import { useSelector } from "react-redux";
 import {
@@ -39,6 +40,7 @@ function App() {
       {screen === "welcome" && <WelcomeScreen />}
       {screen === "about" && <AboutScreen />}
       {screen === "game" && <GameScreen />}
+      {screen === "gamewin" && <GameWinScreen />}
       {screen === "gameover" && <GameOverScreen />}
     </>
   );

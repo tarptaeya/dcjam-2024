@@ -17,8 +17,9 @@ import {
   CELL_SANITY_POTION,
   CELL_TELEPORT,
   CELL_WALL,
+  LIFTED_DUNGEON_MAP,
 } from "./constants";
-import { updateCell } from "./store/dungeonSlice";
+import { setDungeon, updateCell } from "./store/dungeonSlice";
 import { updateScreen } from "./store/screenSlice";
 import { setLiftedBackgroundTrackGain } from "./sound";
 import { liftStage } from "./store/stageSlice";
@@ -125,7 +126,7 @@ const Game = () => {
     } else {
       if (cellType === CELL_TELEPORT) {
         dispatch(liftStage());
-        // TODO also reset the dungeon
+        dispatch(setDungeon(LIFTED_DUNGEON_MAP));
       }
     }
   }, [playerLocation, isLifted]);

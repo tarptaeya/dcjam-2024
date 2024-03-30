@@ -11,12 +11,19 @@ import { incrementPlayerHealth } from "../store/playerHealthSlice";
 
 const HealthBar = () => {
   const playerHealth = useSelector((state) => state.playerHealth.value);
+  const playerSanity = useSelector(state => state.playerSanity.value);
+  const stage = useSelector(state => state.stage.value);
+  const { isLifted } = stage;
   return (
     <div id="player-health-bar-container">
-      <div className="health-bar-label">Health</div>
-      <div id="player-health-bar" className="health-bar">
+      {!isLifted && <><div className="health-bar-label">Health</div><div id="player-health-bar" className="health-bar">
         <span style={{ width: `${playerHealth}%` }} />
-      </div>
+      </div></>}
+      {isLifted && <><div className="health-bar-label">Sanity</div>
+        <div id="player-sanity-bar" className="health-bar">
+          <span style={{ width: `${playerSanity}%` }} />
+        </div>
+      </>}
     </div>
   );
 };
@@ -41,6 +48,9 @@ const EnemyHealthBar = () => {
 const Inventory = () => {
   const inventory = useSelector((state) => state.inventory.value);
   const currentCombat = useSelector((state) => state.currentCombat.value);
+  const stage = useSelector(state => state.stage.value);
+
+  const { isLifted } = stage;
   const { isOpen } = inventory;
 
   const [currentTab, setCurrentTab] = useState("weapons");
@@ -162,7 +172,7 @@ const Inventory = () => {
     <>
       <button
         id="inventory-button"
-        className="btn"
+        className={isLifted ? 'lifted btn' : 'btn'}
         onClick={onBagButtonClick}
         disabled={currentCombat.isActive}
       >

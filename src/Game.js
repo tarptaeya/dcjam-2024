@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { Dungeon } from "./components/Dungeon";
-import { useFrame, useLoader, useThree } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { useDispatch, useSelector } from "react-redux";
 import { centeredVectorForLocation, nextLocation } from "./location";
 import { vectorForDirection } from "./direction";
-import { Color, CubeTextureLoader, TextureLoader, Vector3 } from "three";
+import { Color, Vector3 } from "three";
 import { getLookAtCell, getLookAtLocation } from "./dungeon";
 import { updateInformation } from "./store/informationSlice";
 import { processEnemyAttack } from "./store/playerHealthSlice";
@@ -27,14 +27,12 @@ const Game = () => {
   const dungeon = useSelector((state) => state.dungeon.value);
   const currentCombat = useSelector((state) => state.currentCombat.value);
   const playerHealth = useSelector((state) => state.playerHealth.value);
-  const stage = useSelector(state => state.stage.value);
+  const stage = useSelector((state) => state.stage.value);
   const { isLifted } = stage;
 
   const dispatch = useDispatch();
 
   const spotLightRef = useRef();
-
-  const liftedTexture = useLoader(TextureLoader, './cubemap/l1.png');
 
   useEffect(() => {
     camera.fov = 100;
@@ -98,7 +96,7 @@ const Game = () => {
 
   useEffect(() => {
     if (isLifted) {
-      scene.background = liftedTexture;
+      scene.background = new Color(0, 0, 0);
     }
   }, [isLifted]);
 
@@ -111,7 +109,6 @@ const Game = () => {
     } else {
       setLiftedBackgroundTrackGain(0.3);
     }
-
   }, [isLifted, dungeon, playerLocation, playerDirection]);
 
   useFrame(({ clock }) => {

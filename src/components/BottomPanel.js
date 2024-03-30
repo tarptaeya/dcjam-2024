@@ -17,8 +17,10 @@ import { playClickSound } from "../sound";
 
 const StartBattleButton = () => {
   const dispatch = useDispatch();
-  const inventory = useSelector(state => state.inventory.value);
-  const activeWeapons = inventory.items.filter(it => it.isWeapon && it.isActive);
+  const inventory = useSelector((state) => state.inventory.value);
+  const activeWeapons = inventory.items.filter(
+    (it) => it.isWeapon && it.isActive,
+  );
 
   const onClick = () => {
     playClickSound();

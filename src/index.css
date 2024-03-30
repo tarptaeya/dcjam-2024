@@ -161,6 +161,11 @@ canvas {
   background-color: slateblue;
 }
 
+#inventory-button.lifted {
+  background-color: #404244;
+}
+
+
 #inventory-modal-container {
   position: absolute;
   top: 0;
@@ -312,4 +317,8 @@ canvas {
 
 .spacer {
   flex: 1;
+}
+
+#player-sanity-bar>span {
+  background-color: blueviolet;
 }

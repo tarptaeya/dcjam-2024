@@ -14,7 +14,7 @@ const dungeonSlice = createSlice({
     },
     setDungeon: (state, action) => {
       state.value = action.payload;
-    }
+    },
   },
 });
 

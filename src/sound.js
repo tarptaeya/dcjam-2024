@@ -67,7 +67,6 @@ export const stopBackgroundTrack = () => {
   }
 };
 
-
 export const startLiftedBackgroundTrack = () => {
   stopBackgroundTrack();
 
@@ -83,9 +82,11 @@ export const startLiftedBackgroundTrack = () => {
   window.dcjam.gainNode = gainNode;
 };
 
-
-export const setLiftedBackgroundTrackGain = value => {
+export const setLiftedBackgroundTrackGain = (value) => {
   if (!window.dcjam.gainNode) return;
   const context = getAudioContext();
-  window.dcjam.gainNode.gain.exponentialRampToValueAtTime(value, context.currentTime + 0.2);
-}
+  window.dcjam.gainNode.gain.exponentialRampToValueAtTime(
+    value,
+    context.currentTime + 0.2,
+  );
+};

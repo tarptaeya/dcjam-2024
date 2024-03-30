@@ -50,7 +50,7 @@ const StartBattleButton = () => {
         dispatch(
           startCombat({
             isActive: true,
-            enemyHealth: 10,
+            enemyHealth: 20,
             enemyAttackOptions: [{ name: "bite", damage: 2 }],
           }),
         );

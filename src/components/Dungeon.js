@@ -139,8 +139,8 @@ const createEnemyComponent = (type, texture) => {
 
 
 const BabyEnemies = createEnemyComponent(CELL_ENEMY_BABY, './bat-1.png');
-const KnightEnemies = createEnemyComponent(CELL_ENEMY_KNIGHT, './bat-1.png');
-const GuardEnemies = createEnemyComponent(CELL_ENEMY_GUARD, './bat-1.png');
+const KnightEnemies = createEnemyComponent(CELL_ENEMY_KNIGHT, './bat-3.png');
+const GuardEnemies = createEnemyComponent(CELL_ENEMY_GUARD, './bat-4.png');
 
 
 

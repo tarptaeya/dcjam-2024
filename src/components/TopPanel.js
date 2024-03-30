@@ -30,6 +30,7 @@ const EnemyHealthBar = () => {
 
 const Inventory = () => {
     const inventory = useSelector(state => state.inventory.value);
+    const currentCombat = useSelector(state => state.currentCombat.value);
     const { isOpen } = inventory;
 
     const dispatch = useDispatch();
@@ -77,7 +78,7 @@ const Inventory = () => {
     };
 
     return <>
-        <button id="inventory-button" className="btn" onClick={onBagButtonClick}>Bag</button>
+        <button id="inventory-button" className="btn" onClick={onBagButtonClick} disabled={currentCombat.isActive}>Bag</button>
         {isOpen && getModal()}
     </>;
 };

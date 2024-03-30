@@ -144,8 +144,8 @@ canvas {
   background-color: rgb(43, 194, 83);
 }
 
-.attack-card .use-attack:disabled {
-  background-color: lightgray;
+.btn:disabled {
+  background-color: lightgray !important;
   cursor: wait;
 }
 

@@ -136,8 +136,8 @@ const PickButton = () => {
         dispatch(
           addItem({
             name: "Vision potion",
-            description: "Vision potion, gives 20s of vision",
-            vision: 20,
+            description: "Vision potion, gives 30s of vision",
+            vision: 30,
             isPotion: true,
           }),
         );

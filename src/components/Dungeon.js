@@ -236,6 +236,7 @@ const Teleporter = () => {
         color={"blueviolet"}
         emissive={"blueviolet"}
         emissiveIntensity={2.0}
+        depthTest={false}
       />}
     </instancedMesh>
   );

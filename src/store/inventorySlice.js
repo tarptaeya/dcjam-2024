@@ -26,8 +26,8 @@ const POTIONS = [
   },
   {
     name: "Vision potion",
-    description: "Vision potion, gives 5s of vision",
-    vision: 5,
+    description: "Vision potion, gives 15s of vision",
+    vision: 15,
     isPotion: true,
   }
 ];

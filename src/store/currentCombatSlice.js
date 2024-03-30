@@ -6,7 +6,6 @@ const currentCombatSlice = createSlice({
     value: {
       isActive: false,
       enemyHealth: null,
-      playerAttackOptions: [],
       enemyAttackOptions: [],
       playerTurn: true,
     },
@@ -34,7 +33,6 @@ const currentCombatSlice = createSlice({
       state.value = {
         isActive: false,
         enemyHealth: null,
-        playerAttackOptions: [],
         enemyAttackOptions: [],
         playerTurn: true,
       }

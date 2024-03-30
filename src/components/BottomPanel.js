@@ -21,7 +21,6 @@ const StartBattleButton = () => {
             startCombat({
                 isActive: true,
                 enemyHealth: 100,
-                playerAttackOptions: [{ name: "punch", damage: 20 }],
                 enemyAttackOptions: [{ name: "bite", damage: 10 }],
             }),
         );
@@ -61,9 +60,13 @@ const PickButton = () => {
 const CombatPanel = () => {
     const currentCombat = useSelector((state) => state.currentCombat.value);
     const playerHealth = useSelector((state) => state.playerHealth.value);
-    const { enemyHealth, playerAttackOptions, playerTurn } = currentCombat;
+    const inventory = useSelector(state => state.inventory.value);
+    const { enemyHealth, playerTurn } = currentCombat;
 
     const dispatch = useDispatch();
+
+    const playerAttackOptions = inventory.items.filter(it => it.isWeapon && it.isActive);
+    console.log(playerAttackOptions);
 
     const optionsCard = playerAttackOptions.map((attack) => {
         const handleAttack = () => {

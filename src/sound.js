@@ -66,3 +66,26 @@ export const stopBackgroundTrack = () => {
     window.dcjam.currentBackgroundTrack = null;
   }
 };
+
+
+export const startLiftedBackgroundTrack = () => {
+  stopBackgroundTrack();
+
+  const context = getAudioContext();
+  const oscillator = context.createOscillator();
+  const gainNode = context.createGain();
+  gainNode.gain.value = 0;
+
+  oscillator.connect(gainNode);
+  gainNode.connect(context.destination);
+  oscillator.start();
+
+  window.dcjam.gainNode = gainNode;
+};
+
+
+export const setLiftedBackgroundTrackGain = value => {
+  if (!window.dcjam.gainNode) return;
+  const context = getAudioContext();
+  window.dcjam.gainNode.gain.exponentialRampToValueAtTime(value, context.currentTime + 0.2);
+}

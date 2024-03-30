@@ -178,11 +178,14 @@ const Gems = () => {
 };
 
 export const Dungeon = () => {
+  const stage = useSelector(state => state.stage.value);
+  const { isLifted } = stage;
+
   return (
     <>
-      <Walls />
-      <Floor />
-      <Ceiling />
+      {!isLifted && <Walls />}
+      {!isLifted && <Floor />}
+      {!isLifted && <Ceiling />}
       <Enemies />
       <Gems />
     </>

@@ -14,6 +14,7 @@ import {
   CELL_ENEMY,
   CELL_ENEMY_BABY,
   CELL_FLOOR,
+  CELL_HAMMER,
   CELL_HEALTH_POTION,
   CELL_SANITY_POTION,
   CELL_TELEPORT,
@@ -78,6 +79,9 @@ const Game = () => {
         return;
       case CELL_ENEMY_BABY:
         dispatch(updateInformation({ message: "Baby bat", isEnemy: true }));
+        return;
+      case CELL_HAMMER:
+        dispatch(updateInformation({ message: 'Hammer', isLoot: true }));
         return;
       default:
         dispatch(updateInformation({ message: null }));

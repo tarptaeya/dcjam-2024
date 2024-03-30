@@ -12,6 +12,7 @@ import {
   CELL_ENEMY,
   CELL_ENEMY_BABY,
   CELL_FLOOR,
+  CELL_HAMMER,
   CELL_HEALTH_POTION,
   CELL_SANITY_POTION,
   CELL_VISION_POTION,
@@ -116,6 +117,18 @@ const PickButton = () => {
             description: "Vision potion, gives 5s of vision",
             vision: 5,
             isPotion: true,
+          }),
+        );
+        return;
+      case CELL_HAMMER:
+        dispatch(
+          addItem({
+            name: "Ancient hammer",
+            description:
+              "Ancient hammer. Does 10 damage to enemy",
+            isWeapon: true,
+            damage: 10,
+            isActive: false,
           }),
         );
         return;

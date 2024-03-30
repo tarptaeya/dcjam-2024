@@ -61,6 +61,8 @@ const CombatPanel = () => {
 
     const optionsCard = playerAttackOptions.map((attack) => {
         const handleAttack = () => {
+            playClickSound();
+
             dispatch(processPlayerAttack(attack));
             dispatch(alternateTurn());
         };

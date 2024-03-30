@@ -86,6 +86,9 @@ const Enemies = () => {
   const mesh = useRef();
   const dummy = useMemo(() => new Object3D(), []);
   const dungeon = useSelector((state) => state.dungeon.value);
+  const playerLocation = useSelector(state => state.playerLocation.value);
+
+  const colorMap = useLoader(TextureLoader, "./bat-1.png");
 
   const enemyLocations = useMemo(() => {
     const m = dungeon?.length;
@@ -102,23 +105,25 @@ const Enemies = () => {
   }, [dungeon]);
 
   useEffect(() => {
+    const playerPosition = centeredVectorForLocation(playerLocation);
+
     enemyLocations.forEach((loc, index) => {
       const position = centeredVectorForLocation(loc);
       dummy.position.x = position.x;
       dummy.position.y = position.y;
       dummy.position.z = position.z;
-      dummy.scale.set(0.2, 0.2, 0.2);
+      dummy.lookAt(playerPosition);
       dummy.updateMatrix();
       mesh.current.setMatrixAt(index, dummy.matrix);
     });
 
     mesh.current.instanceMatrix.needsUpdate = true;
-  }, [enemyLocations]);
+  }, [enemyLocations, playerLocation]);
 
   return (
     <instancedMesh ref={mesh} args={[null, null, enemyLocations.length]} frustumCulled={false}>
-      <capsuleGeometry args={[1, 1, 8, 16]} />
-      <meshStandardMaterial color={"red"} />
+      <planeGeometry />
+      <meshStandardMaterial map={colorMap} transparent={true} />
     </instancedMesh>
   );
 };

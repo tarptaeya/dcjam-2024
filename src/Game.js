@@ -34,6 +34,7 @@ const Game = () => {
   const dungeon = useSelector((state) => state.dungeon.value);
   const currentCombat = useSelector((state) => state.currentCombat.value);
   const playerHealth = useSelector((state) => state.playerHealth.value);
+  const playerSanity = useSelector(state => state.playerSanity.value);
   const stage = useSelector((state) => state.stage.value);
   const { isLifted } = stage;
 
@@ -146,6 +147,12 @@ const Game = () => {
       }
     }
   }, [playerLocation, isLifted]);
+
+  useEffect(() => {
+    if (playerSanity === 0) {
+      dispatch(updateScreen("gameover"));
+    }
+  }, [playerSanity]);
 
   useFrame(({ clock }) => {
     const position = centeredVectorForLocation(playerLocation);

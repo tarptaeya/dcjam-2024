@@ -6,17 +6,20 @@ const currentCombatSlice = createSlice({
     value: {
       isActive: false,
       enemyHealth: null,
+      enemyMaxHealth: null,
       enemyAttackOptions: [],
       playerTurn: true,
     },
   },
   reducers: {
     startCombat: (state, action) => {
+      const enemyMaxHealth = action.payload.enemyHealth;
       state.value = {
         ...state.value,
         ...action.payload,
         isActive: true,
         playerTurn: true,
+        enemyMaxHealth,
       };
     },
     processPlayerAttack: (state, action) => {
@@ -33,6 +36,7 @@ const currentCombatSlice = createSlice({
       state.value = {
         isActive: false,
         enemyHealth: null,
+        enemyMaxHealth: null,
         enemyAttackOptions: [],
         playerTurn: true,
       };

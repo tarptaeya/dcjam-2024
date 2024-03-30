@@ -39,7 +39,7 @@ const HealthBar = () => {
 };
 
 const EnemyHealthBar = () => {
-  const { isActive, enemyHealth } = useSelector(
+  const { isActive, enemyHealth, enemyMaxHealth } = useSelector(
     (state) => state.currentCombat.value,
   );
 
@@ -49,7 +49,7 @@ const EnemyHealthBar = () => {
     <div id="enemy-health-bar-container">
       <div className="health-bar-label">Enemy</div>
       <div id="enemy-health-bar" className="health-bar enemy">
-        <span style={{ width: `${enemyHealth}%` }} />
+        <span style={{ width: `${enemyHealth * 100 / enemyMaxHealth}%` }} />
       </div>
     </div>
   );

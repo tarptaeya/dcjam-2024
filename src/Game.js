@@ -16,6 +16,7 @@ import {
   CELL_HEALTH_POTION,
   CELL_SANITY_POTION,
   CELL_TELEPORT,
+  CELL_VISION_POTION,
   CELL_WALL,
   LIFTED_DUNGEON_MAP,
 } from "./constants";
@@ -68,6 +69,9 @@ const Game = () => {
         return;
       case CELL_SANITY_POTION:
         dispatch(updateInformation({ message: "Sanity potion", isLoot: true }));
+        return;
+      case CELL_VISION_POTION:
+        dispatch(updateInformation({ message: "Vision potion", isLoot: true }));
         return;
       default:
         dispatch(updateInformation({ message: null }));

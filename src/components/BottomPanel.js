@@ -12,6 +12,7 @@ import {
   CELL_FLOOR,
   CELL_HEALTH_POTION,
   CELL_SANITY_POTION,
+  CELL_VISION_POTION,
 } from "../constants";
 import { addItem, toggleShowInventory } from "../store/inventorySlice";
 import { playClickSound } from "../sound";
@@ -86,6 +87,16 @@ const PickButton = () => {
             name: "Sanity potion",
             description: "Sanity potion, +20 sanity",
             sanity: 20,
+            isPotion: true,
+          }),
+        );
+        return;
+      case CELL_VISION_POTION:
+        dispatch(
+          addItem({
+            name: "Vision potion",
+            description: "Vision potion, gives 5s of vision",
+            vision: 5,
             isPotion: true,
           }),
         );

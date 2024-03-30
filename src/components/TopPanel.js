@@ -9,6 +9,7 @@ import {
 } from "../store/inventorySlice";
 import { incrementPlayerHealth } from "../store/playerHealthSlice";
 import { incrementPlayerSanity } from "../store/playerSanitySlice";
+import { setStageVisible } from "../store/stageSlice";
 
 const HealthBar = () => {
   const playerHealth = useSelector((state) => state.playerHealth.value);
@@ -59,7 +60,7 @@ const Inventory = () => {
   const currentCombat = useSelector((state) => state.currentCombat.value);
   const stage = useSelector((state) => state.stage.value);
 
-  const { isLifted } = stage;
+  const { isLifted, isVisible } = stage;
   const { isOpen } = inventory;
 
   const [currentTab, setCurrentTab] = useState("weapons");
@@ -131,6 +132,11 @@ const Inventory = () => {
                     dispatch(incrementPlayerHealth(it.health));
                   } else if (!!it.sanity) {
                     dispatch(incrementPlayerSanity(it.sanity));
+                  } else if (!!it.vision) {
+                    dispatch(setStageVisible(true));
+                    setTimeout(() => {
+                      dispatch(setStageVisible(false));
+                    }, it.vision * 1000);
                   }
                 };
 
@@ -146,11 +152,13 @@ const Inventory = () => {
                     <div className="inventory-modal-weapon-info">
                       {!!it.health && <div className="damage">Health +{it.health}</div>}
                       {!!it.sanity && <div className="damage">Sanity +{it.sanity}</div>}
+                      {!!it.vision && <div className="damage">Vision for {it.vision}s</div>}
                     </div>
                     <div>
                       <button
                         className="inventory-modal-use-potion btn"
                         onClick={onUsePotion}
+                        disabled={!isLifted || (isLifted && isVisible)}
                       >
                         Use
                       </button>

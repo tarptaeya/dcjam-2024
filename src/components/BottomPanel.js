@@ -71,7 +71,7 @@ const PickButton = () => {
         dispatch(
           addItem({
             name: "Health potion",
-            description: "Health potion, +30 health",
+            description: "Health potion, +20 health",
             health: 20,
             isPotion: true,
           }),

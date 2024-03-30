@@ -12,14 +12,21 @@ import {
   CELL_FLOOR,
   CELL_HEALTH_POTION,
 } from "../constants";
-import { addItem } from "../store/inventorySlice";
+import { addItem, toggleShowInventory } from "../store/inventorySlice";
 import { playClickSound } from "../sound";
 
 const StartBattleButton = () => {
   const dispatch = useDispatch();
+  const inventory = useSelector(state => state.inventory.value);
+  const activeWeapons = inventory.items.filter(it => it.isWeapon && it.isActive);
 
   const onClick = () => {
     playClickSound();
+
+    if (activeWeapons.length === 0) {
+      dispatch(toggleShowInventory());
+      return;
+    }
 
     dispatch(
       startCombat({

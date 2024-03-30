@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Object3D, RepeatWrapping, TextureLoader } from "three";
 import { centeredVectorForLocation } from "../location";
 import { useFrame, useLoader } from "@react-three/fiber";
-import { CELL_ENEMY, CELL_GEM, CELL_TELEPORT, CELL_WALL } from "../constants";
+import { CELL_ENEMY, CELL_ENEMY_BABY, CELL_GEM, CELL_TELEPORT, CELL_WALL } from "../constants";
 import { getLocationsForCellType } from "../dungeon";
 
 const Walls = () => {
@@ -85,55 +85,61 @@ const Floor = () => {
   );
 };
 
-const Enemies = () => {
-  const mesh = useRef();
-  const dummy = useMemo(() => new Object3D(), []);
-  const dungeon = useSelector((state) => state.dungeon.value);
-  const playerLocation = useSelector((state) => state.playerLocation.value);
+const createEnemyComponent = (type, texture) => {
+  return () => {
+    const mesh = useRef();
+    const dummy = useMemo(() => new Object3D(), []);
+    const dungeon = useSelector((state) => state.dungeon.value);
+    const playerLocation = useSelector((state) => state.playerLocation.value);
 
-  const colorMap = useLoader(TextureLoader, "./bat-1.png");
+    const colorMap = useLoader(TextureLoader, texture);
 
-  const enemyLocations = useMemo(() => {
-    const m = dungeon?.length;
-    const n = dungeon?.[0].length;
-    const ans = [];
-    for (let i = 0; i < m; ++i) {
-      for (let j = 0; j < n; ++j) {
-        if (dungeon[i][j] == CELL_ENEMY) {
-          ans.push([i, j]);
+    const enemyLocations = useMemo(() => {
+      const m = dungeon?.length;
+      const n = dungeon?.[0].length;
+      const ans = [];
+      for (let i = 0; i < m; ++i) {
+        for (let j = 0; j < n; ++j) {
+          if (dungeon[i][j] == type) {
+            ans.push([i, j]);
+          }
         }
       }
-    }
-    return ans;
-  }, [dungeon]);
+      return ans;
+    }, [dungeon]);
 
-  useEffect(() => {
-    const playerPosition = centeredVectorForLocation(playerLocation);
+    useEffect(() => {
+      const playerPosition = centeredVectorForLocation(playerLocation);
 
-    enemyLocations.forEach((loc, index) => {
-      const position = centeredVectorForLocation(loc);
-      dummy.position.x = position.x;
-      dummy.position.y = position.y;
-      dummy.position.z = position.z;
-      dummy.lookAt(playerPosition);
-      dummy.updateMatrix();
-      mesh.current.setMatrixAt(index, dummy.matrix);
-    });
+      enemyLocations.forEach((loc, index) => {
+        const position = centeredVectorForLocation(loc);
+        dummy.position.x = position.x;
+        dummy.position.y = position.y;
+        dummy.position.z = position.z;
+        dummy.lookAt(playerPosition);
+        dummy.updateMatrix();
+        mesh.current.setMatrixAt(index, dummy.matrix);
+      });
 
-    mesh.current.instanceMatrix.needsUpdate = true;
-  }, [enemyLocations, playerLocation]);
+      mesh.current.instanceMatrix.needsUpdate = true;
+    }, [enemyLocations, playerLocation]);
 
-  return (
-    <instancedMesh
-      ref={mesh}
-      args={[null, null, enemyLocations.length]}
-      frustumCulled={false}
-    >
-      <planeGeometry />
-      <meshStandardMaterial map={colorMap} transparent={true} />
-    </instancedMesh>
-  );
+    return (
+      <instancedMesh
+        ref={mesh}
+        args={[null, null, enemyLocations.length]}
+        frustumCulled={false}
+      >
+        <planeGeometry />
+        <meshStandardMaterial map={colorMap} transparent={true} />
+      </instancedMesh>
+    );
+  }
 };
+
+
+const BabyEnemies = createEnemyComponent(CELL_ENEMY_BABY, './bat-1.png');
+
 
 const Gems = () => {
   const mesh = useRef();
@@ -238,7 +244,7 @@ export const Dungeon = () => {
         <Floor />
         <Ceiling />
       </>}
-      <Enemies />
+      <BabyEnemies />
       <Gems />
       <Teleporter />
     </>

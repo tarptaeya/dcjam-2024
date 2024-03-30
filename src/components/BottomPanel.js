@@ -9,6 +9,8 @@ import { updateCell } from "../store/dungeonSlice";
 import { getLookAtCell, getLookAtLocation } from "../dungeon";
 import {
   CELL_ANCIENT_SWORD,
+  CELL_ENEMY,
+  CELL_ENEMY_BABY,
   CELL_FLOOR,
   CELL_HEALTH_POTION,
   CELL_SANITY_POTION,
@@ -32,13 +34,29 @@ const StartBattleButton = () => {
       return;
     }
 
-    dispatch(
-      startCombat({
-        isActive: true,
-        enemyHealth: 100,
-        enemyAttackOptions: [{ name: "bite", damage: 10 }],
-      }),
-    );
+    const lookAtCell = getLookAtCell();
+    switch (lookAtCell) {
+      case CELL_ENEMY:
+        dispatch(
+          startCombat({
+            isActive: true,
+            enemyHealth: 100,
+            enemyAttackOptions: [{ name: "bite", damage: 10 }],
+          }),
+        );
+        break;
+      case CELL_ENEMY_BABY:
+        dispatch(
+          startCombat({
+            isActive: true,
+            enemyHealth: 10,
+            enemyAttackOptions: [{ name: "bite", damage: 2 }],
+          }),
+        );
+    }
+
+
+
   };
 
   return (

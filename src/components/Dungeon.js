@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Object3D, RepeatWrapping, TextureLoader } from "three";
 import { centeredVectorForLocation } from "../location";
 import { useFrame, useLoader } from "@react-three/fiber";
-import { CELL_ENEMY, CELL_ENEMY_BABY, CELL_GEM, CELL_TELEPORT, CELL_WALL } from "../constants";
+import { CELL_ENEMY, CELL_ENEMY_BABY, CELL_ENEMY_GUARD, CELL_ENEMY_KNIGHT, CELL_GEM, CELL_TELEPORT, CELL_WALL } from "../constants";
 import { getLocationsForCellType } from "../dungeon";
 
 const Walls = () => {
@@ -139,6 +139,9 @@ const createEnemyComponent = (type, texture) => {
 
 
 const BabyEnemies = createEnemyComponent(CELL_ENEMY_BABY, './bat-1.png');
+const KnightEnemies = createEnemyComponent(CELL_ENEMY_KNIGHT, './bat-1.png');
+const GuardEnemies = createEnemyComponent(CELL_ENEMY_GUARD, './bat-1.png');
+
 
 
 const Gems = () => {
@@ -245,6 +248,8 @@ export const Dungeon = () => {
         <Ceiling />
       </>}
       <BabyEnemies />
+      <KnightEnemies />
+      <GuardEnemies />
       <Gems />
       <Teleporter />
     </>

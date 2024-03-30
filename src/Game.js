@@ -13,6 +13,8 @@ import {
   CELL_ANCIENT_SWORD,
   CELL_ENEMY,
   CELL_ENEMY_BABY,
+  CELL_ENEMY_GUARD,
+  CELL_ENEMY_KNIGHT,
   CELL_FLOOR,
   CELL_HAMMER,
   CELL_HEALTH_POTION,
@@ -79,6 +81,12 @@ const Game = () => {
         return;
       case CELL_ENEMY_BABY:
         dispatch(updateInformation({ message: "Baby bat", isEnemy: true }));
+        return;
+      case CELL_ENEMY_KNIGHT:
+        dispatch(updateInformation({ message: "Knight bat", isEnemy: true }));
+        return;
+      case CELL_ENEMY_GUARD:
+        dispatch(updateInformation({ message: "Guard bat", isEnemy: true }));
         return;
       case CELL_HAMMER:
         dispatch(updateInformation({ message: 'Hammer', isLoot: true }));

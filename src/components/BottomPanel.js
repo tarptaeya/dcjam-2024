@@ -11,6 +11,8 @@ import {
   CELL_ANCIENT_SWORD,
   CELL_ENEMY,
   CELL_ENEMY_BABY,
+  CELL_ENEMY_GUARD,
+  CELL_ENEMY_KNIGHT,
   CELL_FLOOR,
   CELL_HAMMER,
   CELL_HEALTH_POTION,
@@ -54,6 +56,25 @@ const StartBattleButton = () => {
             enemyAttackOptions: [{ name: "bite", damage: 2 }],
           }),
         );
+        break;
+      case CELL_ENEMY_KNIGHT:
+        dispatch(
+          startCombat({
+            isActive: true,
+            enemyHealth: 45,
+            enemyAttackOptions: [{ name: "bite", damage: 9 }],
+          }),
+        );
+        break;
+      case CELL_ENEMY_GUARD:
+        dispatch(
+          startCombat({
+            isActive: true,
+            enemyHealth: 70,
+            enemyAttackOptions: [{ name: "bite", damage: 15 }],
+          }),
+        );
+        break;
     }
 
 

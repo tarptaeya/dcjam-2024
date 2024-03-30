@@ -137,6 +137,7 @@ const Inventory = () => {
                     setTimeout(() => {
                       dispatch(setStageVisible(false));
                     }, it.vision * 1000);
+                    dispatch(toggleShowInventory());
                   }
                 };
 

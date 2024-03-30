@@ -181,6 +181,8 @@ const Teleporter = () => {
   const mesh = useRef();
   const dummy = useMemo(() => new Object3D(), []);
   const dungeon = useSelector((state) => state.dungeon.value);
+  const stage = useSelector((state) => state.stage.value);
+  const { isLifted } = stage;
 
   const locations = useMemo(() => {
     return getLocationsForCellType(dungeon, CELL_TELEPORT);
@@ -210,11 +212,16 @@ const Teleporter = () => {
       frustumCulled={false}
     >
       <torusKnotGeometry args={[10, 3, 100, 16]} />
-      <meshStandardMaterial
+      {!isLifted && <meshStandardMaterial
         color={"crimson"}
         emissive={"red"}
         emissiveIntensity={2.0}
-      />
+      />}
+      {isLifted && <meshStandardMaterial
+        color={"blueviolet"}
+        emissive={"blueviolet"}
+        emissiveIntensity={2.0}
+      />}
     </instancedMesh>
   );
 };

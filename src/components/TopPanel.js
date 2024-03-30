@@ -159,7 +159,7 @@ const Inventory = () => {
                       <button
                         className="inventory-modal-use-potion btn"
                         onClick={onUsePotion}
-                        disabled={!isLifted || (isLifted && isVisible)}
+                        disabled={!!it.vision ? !isLifted || (isLifted && isVisible) : false}
                       >
                         Use
                       </button>

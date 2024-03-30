@@ -229,13 +229,15 @@ const Teleporter = () => {
 
 export const Dungeon = () => {
   const stage = useSelector((state) => state.stage.value);
-  const { isLifted } = stage;
+  const { isLifted, isVisible } = stage;
 
   return (
     <>
-      {!isLifted && <Walls />}
-      {!isLifted && <Floor />}
-      {!isLifted && <Ceiling />}
+      {isVisible && <>
+        <Walls />
+        <Floor />
+        <Ceiling />
+      </>}
       <Enemies />
       <Gems />
       <Teleporter />

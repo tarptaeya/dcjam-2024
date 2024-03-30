@@ -33,7 +33,7 @@ function App() {
     } else {
       stopBackgroundTrack();
     }
-  }, [screen, isActive]);
+  }, [screen, isLifted, isActive]);
 
   return (
     <>

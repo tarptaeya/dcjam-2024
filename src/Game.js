@@ -22,7 +22,7 @@ import {
 import { setDungeon, updateCell } from "./store/dungeonSlice";
 import { updateScreen } from "./store/screenSlice";
 import { setLiftedBackgroundTrackGain } from "./sound";
-import { liftStage } from "./store/stageSlice";
+import { liftStage, setStageVisible } from "./store/stageSlice";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 
 const Game = () => {
@@ -115,7 +115,7 @@ const Game = () => {
     if (lookAtCell == CELL_WALL) {
       setLiftedBackgroundTrackGain(1.0);
     } else {
-      setLiftedBackgroundTrackGain(0.3);
+      setLiftedBackgroundTrackGain(0.2);
     }
   }, [isLifted, dungeon, playerLocation, playerDirection]);
 
@@ -128,6 +128,7 @@ const Game = () => {
     } else {
       if (cellType === CELL_TELEPORT) {
         dispatch(liftStage());
+        dispatch(setStageVisible(false));
         dispatch(setDungeon(LIFTED_DUNGEON_MAP));
       }
     }

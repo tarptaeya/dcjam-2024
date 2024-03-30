@@ -80,6 +80,7 @@ export const startLiftedBackgroundTrack = () => {
   oscillator.start();
 
   window.dcjam.gainNode = gainNode;
+  window.dcjam.currentBackgroundTrack = oscillator;
 };
 
 export const setLiftedBackgroundTrackGain = (value) => {

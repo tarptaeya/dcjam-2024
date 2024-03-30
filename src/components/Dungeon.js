@@ -131,7 +131,7 @@ const createBillboardComponent = (type, texture) => {
         frustumCulled={false}
       >
         <planeGeometry />
-        <meshStandardMaterial map={colorMap} transparent={true} />
+        <meshStandardMaterial map={colorMap} transparent={true} alphaTest={.2} />
       </instancedMesh>
     );
   }

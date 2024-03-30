@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
-import { WelcomeScreen, AboutScreen, GameScreen } from "./screens";
+import {
+  WelcomeScreen,
+  AboutScreen,
+  GameScreen,
+  GameOverScreen,
+} from "./screens";
 import { useSelector } from "react-redux";
-import { startBackgroundTrack } from "./sound";
+import { startBackgroundTrack, stopBackgroundTrack } from "./sound";
 
 function App() {
   const screen = useSelector((state) => state.screen.value);
@@ -15,6 +20,8 @@ function App() {
       } else {
         startBackgroundTrack("/background.mp3");
       }
+    } else {
+      stopBackgroundTrack();
     }
   }, [screen, isActive]);
 
@@ -23,6 +30,7 @@ function App() {
       {screen === "welcome" && <WelcomeScreen />}
       {screen === "about" && <AboutScreen />}
       {screen === "game" && <GameScreen />}
+      {screen === "gameover" && <GameOverScreen />}
     </>
   );
 }

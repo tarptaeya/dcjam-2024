@@ -63,3 +63,22 @@ export const WelcomeScreen = () => {
     </div>
   );
 };
+
+export const GameOverScreen = () => {
+  const navigateToWelcome = () => {
+    window.location.reload();
+  };
+
+  return (
+    <div id="game-over-screen">
+      <div id="game-over-screen-contents">
+        <h2>Wasted... Game Over!!!</h2>
+        <div id="game-over-screen-actions">
+          <button className="btn" onClick={navigateToWelcome}>
+            Back to Menu
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};

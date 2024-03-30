@@ -11,6 +11,7 @@ import { processEnemyAttack } from "./store/playerHealthSlice";
 import { alternateTurn, resetCombat } from "./store/currentCombatSlice";
 import { CELL_ANCIENT_SWORD, CELL_ENEMY, CELL_FLOOR } from "./constants";
 import { updateCell } from "./store/dungeonSlice";
+import { updateScreen } from "./store/screenSlice";
 
 const Game = () => {
   const { camera } = useThree();
@@ -59,10 +60,15 @@ const Game = () => {
       currentCombat;
     if (!isActive) return;
 
-    if (enemyHealth == 0) {
+    if (enemyHealth === 0) {
       const lookAtLocation = getLookAtLocation();
       dispatch(resetCombat());
       dispatch(updateCell({ location: lookAtLocation, cellType: CELL_FLOOR }));
+      return;
+    }
+
+    if (playerHealth === 0) {
+      dispatch(updateScreen("gameover"));
       return;
     }
 

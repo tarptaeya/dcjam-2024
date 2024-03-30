@@ -59,7 +59,7 @@ canvas {
   width: 200px;
 }
 
-.health-bar>span {
+.health-bar > span {
   display: block;
   height: 100%;
   background-color: rgb(43, 194, 83);
@@ -67,7 +67,7 @@ canvas {
   overflow: hidden;
 }
 
-.health-bar.enemy>span {
+.health-bar.enemy > span {
   display: block;
   height: 100%;
   background-color: crimson;
@@ -220,7 +220,7 @@ canvas {
   overflow: hidden;
 }
 
-.inventory-modal-weapon-active>span.ribbon {
+.inventory-modal-weapon-active > span.ribbon {
   width: 43px;
   height: 23px;
   background-color: rgb(43, 194, 83);
@@ -236,10 +236,9 @@ canvas {
   align-items: center;
 }
 
-#inventory-modal-footer>div {
+#inventory-modal-footer > div {
   flex: 1;
 }
-
 
 #inventory-modal-close-button {
   background-color: crimson;
@@ -251,4 +250,38 @@ canvas {
   display: grid;
   gap: 22px;
   grid-template-columns: repeat(3, 1fr);
+}
+
+#game-over-screen {
+  color: white;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#game-over-screen-contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 300px;
+}
+
+#game-over-screen-contents h2 {
+  font-size: 2rem;
+  margin-bottom: 36px;
+}
+
+#game-over-screen-actions {
+  max-width: 400px;
+  display: flex;
+  justify-content: center;
+}
+
+#game-over-screen-actions button {
+  background-color: blueviolet;
 }

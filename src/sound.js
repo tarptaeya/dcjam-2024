@@ -58,3 +58,11 @@ export const startBackgroundTrack = async (filepath) => {
   window.dcjam.currentBackgroundTrack = node;
   node.start();
 };
+
+export const stopBackgroundTrack = () => {
+  if (!!window.dcjam.currentBackgroundTrack) {
+    const track = window.dcjam.currentBackgroundTrack;
+    track?.stop();
+    window.dcjam.currentBackgroundTrack = null;
+  }
+};

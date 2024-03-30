@@ -35,7 +35,7 @@ const currentCombatSlice = createSlice({
         enemyHealth: null,
         enemyAttackOptions: [],
         playerTurn: true,
-      }
+      };
     },
   },
 });

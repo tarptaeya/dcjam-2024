@@ -11,7 +11,7 @@ const dungeonSlice = createSlice({
       const { location, cellType } = action.payload;
       const [i, j] = location;
       state.value[i][j] = cellType;
-    }
+    },
   },
 });
 

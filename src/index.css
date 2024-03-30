@@ -1,11 +1,12 @@
-@import url('./reset.css');
+@import url("./reset.css");
 
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   cursor: pointer;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
 html,
@@ -58,7 +59,7 @@ canvas {
   width: 200px;
 }
 
-.health-bar>span {
+.health-bar > span {
   display: block;
   height: 100%;
   background-color: rgb(43, 194, 83);
@@ -66,14 +67,13 @@ canvas {
   overflow: hidden;
 }
 
-.health-bar.enemy>span {
+.health-bar.enemy > span {
   display: block;
   height: 100%;
   background-color: crimson;
   position: relative;
   overflow: hidden;
 }
-
 
 .health-bar-label {
   color: white;
@@ -127,12 +127,15 @@ canvas {
   color: white;
   background-color: darkviolet;
   border: 2px solid white;
+  display: flex;
+  flex-direction: column;
 }
 
 .attack-card-label {
   text-transform: capitalize;
   font-weight: bolder;
   margin: 8px;
+  flex: 1;
 }
 
 .attack-card-sublabel {
@@ -217,7 +220,7 @@ canvas {
   overflow: hidden;
 }
 
-.inventory-modal-weapon-active>span.ribbon {
+.inventory-modal-weapon-active > span.ribbon {
   width: 43px;
   height: 23px;
   background-color: rgb(43, 194, 83);
@@ -228,9 +231,18 @@ canvas {
   transform: rotate(-45deg);
 }
 
-#inventory-modal-footer {}
+#inventory-modal-footer {
+}
 
 #inventory-modal-close-button {
   background-color: crimson;
   float: right;
+}
+
+.attack-card-container {
+  max-width: 500px;
+  flex: 1;
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(3, 1fr);
 }

@@ -46,7 +46,7 @@ const Game = () => {
         dispatch(updateInformation({ message: "Mutant bat", isEnemy: true }));
         return;
       case CELL_ANCIENT_SWORD:
-        dispatch(updateInformation({ message: "Ancient sword", isLoot: true, }));
+        dispatch(updateInformation({ message: "Ancient sword", isLoot: true }));
         return;
       default:
         dispatch(updateInformation({ message: null }));
@@ -55,7 +55,8 @@ const Game = () => {
   }, [dungeon, playerLocation, playerDirection]);
 
   useEffect(() => {
-    const { playerTurn, enemyHealth, isActive, enemyAttackOptions } = currentCombat;
+    const { playerTurn, enemyHealth, isActive, enemyAttackOptions } =
+      currentCombat;
     if (!isActive) return;
 
     if (enemyHealth == 0) {

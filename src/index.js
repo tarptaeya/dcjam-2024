@@ -10,9 +10,7 @@ const container = document.createElement("div");
 container.id = "root";
 document.body.appendChild(container);
 
-
 window.dcjam = {};
-
 
 const root = ReactDOM.createRoot(container);
 root.render(

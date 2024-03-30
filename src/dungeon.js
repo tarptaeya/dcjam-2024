@@ -1,7 +1,6 @@
 import { nextLocation } from "./location";
 import store from "./store/store";
 
-
 export const getLookAtLocation = () => {
   const state = store.getState();
   const playerLocation = state.playerLocation.value;
@@ -11,14 +10,13 @@ export const getLookAtLocation = () => {
   return lookAtLocation;
 };
 
-
 export const getLookAtCell = () => {
   const state = store.getState();
   const dungeon = state.dungeon.value;
   const lookAtLocation = getLookAtLocation();
   const lookAtCell = dungeon?.[lookAtLocation[0]]?.[lookAtLocation[1]];
   return lookAtCell;
-}
+};
 
 export const getLocationsForCellType = (dungeon, cellType) => {
   const m = dungeon?.length;
@@ -32,4 +30,4 @@ export const getLocationsForCellType = (dungeon, cellType) => {
     }
   }
   return ans;
-}; 
+};

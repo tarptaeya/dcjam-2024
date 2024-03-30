@@ -34,7 +34,11 @@ const Walls = () => {
   }, [wallLocations]);
 
   return (
-    <instancedMesh ref={mesh} args={[null, null, wallLocations.length]} frustumCulled={false}>
+    <instancedMesh
+      ref={mesh}
+      args={[null, null, wallLocations.length]}
+      frustumCulled={false}
+    >
       <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial map={colorMap} />
     </instancedMesh>
@@ -81,12 +85,11 @@ const Floor = () => {
   );
 };
 
-
 const Enemies = () => {
   const mesh = useRef();
   const dummy = useMemo(() => new Object3D(), []);
   const dungeon = useSelector((state) => state.dungeon.value);
-  const playerLocation = useSelector(state => state.playerLocation.value);
+  const playerLocation = useSelector((state) => state.playerLocation.value);
 
   const colorMap = useLoader(TextureLoader, "./bat-1.png");
 
@@ -121,13 +124,16 @@ const Enemies = () => {
   }, [enemyLocations, playerLocation]);
 
   return (
-    <instancedMesh ref={mesh} args={[null, null, enemyLocations.length]} frustumCulled={false}>
+    <instancedMesh
+      ref={mesh}
+      args={[null, null, enemyLocations.length]}
+      frustumCulled={false}
+    >
       <planeGeometry />
       <meshStandardMaterial map={colorMap} transparent={true} />
     </instancedMesh>
   );
 };
-
 
 const Gems = () => {
   const mesh = useRef();
@@ -156,13 +162,20 @@ const Gems = () => {
   });
 
   return (
-    <instancedMesh ref={mesh} args={[null, null, gemsLocations.length]} frustumCulled={false}>
+    <instancedMesh
+      ref={mesh}
+      args={[null, null, gemsLocations.length]}
+      frustumCulled={false}
+    >
       <octahedronGeometry args={[1, 0]} />
-      <meshStandardMaterial color={"crimson"} emissive={"red"} emissiveIntensity={2.0} />
+      <meshStandardMaterial
+        color={"crimson"}
+        emissive={"red"}
+        emissiveIntensity={2.0}
+      />
     </instancedMesh>
   );
 };
-
 
 export const Dungeon = () => {
   return (

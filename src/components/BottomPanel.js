@@ -11,6 +11,7 @@ import {
   CELL_ANCIENT_SWORD,
   CELL_FLOOR,
   CELL_HEALTH_POTION,
+  CELL_SANITY_POTION,
 } from "../constants";
 import { addItem, toggleShowInventory } from "../store/inventorySlice";
 import { playClickSound } from "../sound";
@@ -75,6 +76,16 @@ const PickButton = () => {
             name: "Health potion",
             description: "Health potion, +20 health",
             health: 20,
+            isPotion: true,
+          }),
+        );
+        return;
+      case CELL_SANITY_POTION:
+        dispatch(
+          addItem({
+            name: "Sanity potion",
+            description: "Sanity potion, +20 sanity",
+            sanity: 20,
             isPotion: true,
           }),
         );

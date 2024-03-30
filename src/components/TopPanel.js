@@ -8,22 +8,31 @@ import {
   toggleShowInventory,
 } from "../store/inventorySlice";
 import { incrementPlayerHealth } from "../store/playerHealthSlice";
+import { incrementPlayerSanity } from "../store/playerSanitySlice";
 
 const HealthBar = () => {
   const playerHealth = useSelector((state) => state.playerHealth.value);
-  const playerSanity = useSelector(state => state.playerSanity.value);
-  const stage = useSelector(state => state.stage.value);
+  const playerSanity = useSelector((state) => state.playerSanity.value);
+  const stage = useSelector((state) => state.stage.value);
   const { isLifted } = stage;
   return (
     <div id="player-health-bar-container">
-      {!isLifted && <><div className="health-bar-label">Health</div><div id="player-health-bar" className="health-bar">
-        <span style={{ width: `${playerHealth}%` }} />
-      </div></>}
-      {isLifted && <><div className="health-bar-label">Sanity</div>
-        <div id="player-sanity-bar" className="health-bar">
-          <span style={{ width: `${playerSanity}%` }} />
-        </div>
-      </>}
+      {!isLifted && (
+        <>
+          <div className="health-bar-label">Health</div>
+          <div id="player-health-bar" className="health-bar">
+            <span style={{ width: `${playerHealth}%` }} />
+          </div>
+        </>
+      )}
+      {isLifted && (
+        <>
+          <div className="health-bar-label">Sanity</div>
+          <div id="player-sanity-bar" className="health-bar">
+            <span style={{ width: `${playerSanity}%` }} />
+          </div>
+        </>
+      )}
     </div>
   );
 };
@@ -48,7 +57,7 @@ const EnemyHealthBar = () => {
 const Inventory = () => {
   const inventory = useSelector((state) => state.inventory.value);
   const currentCombat = useSelector((state) => state.currentCombat.value);
-  const stage = useSelector(state => state.stage.value);
+  const stage = useSelector((state) => state.stage.value);
 
   const { isLifted } = stage;
   const { isOpen } = inventory;
@@ -118,7 +127,11 @@ const Inventory = () => {
                 const onUsePotion = () => {
                   playClickSound();
                   dispatch(removeItem(it.name));
-                  dispatch(incrementPlayerHealth(it.health));
+                  if (!!it.health) {
+                    dispatch(incrementPlayerHealth(it.health));
+                  } else if (!!it.sanity) {
+                    dispatch(incrementPlayerSanity(it.sanity));
+                  }
                 };
 
                 return (
@@ -131,7 +144,8 @@ const Inventory = () => {
                   >
                     <div className="inventory-modal-item-title">{it.name}</div>
                     <div className="inventory-modal-weapon-info">
-                      <div className="damage">Health +{it.health}</div>
+                      {!!it.health && <div className="damage">Health +{it.health}</div>}
+                      {!!it.sanity && <div className="damage">Sanity +{it.sanity}</div>}
                     </div>
                     <div>
                       <button
@@ -172,7 +186,7 @@ const Inventory = () => {
     <>
       <button
         id="inventory-button"
-        className={isLifted ? 'lifted btn' : 'btn'}
+        className={isLifted ? "lifted btn" : "btn"}
         onClick={onBagButtonClick}
         disabled={currentCombat.isActive}
       >

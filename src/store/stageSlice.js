@@ -4,7 +4,7 @@ const stageSlice = createSlice({
   name: "stage",
   initialState: {
     value: {
-      isLifted: true,
+      isLifted: false,
     },
   },
   reducers: {

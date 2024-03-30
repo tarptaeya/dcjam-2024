@@ -14,6 +14,7 @@ import {
   CELL_ENEMY,
   CELL_FLOOR,
   CELL_HEALTH_POTION,
+  CELL_SANITY_POTION,
   CELL_WALL,
 } from "./constants";
 import { updateCell } from "./store/dungeonSlice";
@@ -60,6 +61,9 @@ const Game = () => {
         return;
       case CELL_HEALTH_POTION:
         dispatch(updateInformation({ message: "Health potion", isLoot: true }));
+        return;
+      case CELL_SANITY_POTION:
+        dispatch(updateInformation({ message: "Sanity potion", isLoot: true }));
         return;
       default:
         dispatch(updateInformation({ message: null }));

@@ -12,6 +12,7 @@ import {
   startLiftedBackgroundTrack,
   stopBackgroundTrack,
 } from "./sound";
+import StoryComponent from "./components/Story";
 
 function App() {
   const screen = useSelector((state) => state.screen.value);
@@ -34,6 +35,15 @@ function App() {
       stopBackgroundTrack();
     }
   }, [screen, isLifted, isActive]);
+
+  if (true) {
+    return (
+      <StoryComponent
+        paragraphs={["Hello", "World", "Play now"]}
+        onComplete={() => {}}
+      />
+    );
+  }
 
   return (
     <>

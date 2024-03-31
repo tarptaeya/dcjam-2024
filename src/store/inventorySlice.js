@@ -8,20 +8,6 @@ const WEAPONS = [
     damage: 5,
     isActive: true,
   },
-  {
-    name: "slap",
-    description: "Slap the enemy real hard.",
-    isWeapon: true,
-    damage: 2,
-    isActive: true,
-  },
-  {
-    name: "Magic",
-    description: "For test only",
-    isWeapon: true,
-    damage: 100,
-    isActive: true,
-  },
 ];
 
 const POTIONS = [

@@ -67,19 +67,19 @@ const Game = () => {
     const lookAtCell = getLookAtCell();
     switch (lookAtCell) {
       case CELL_ENEMY:
-        dispatch(updateInformation({ message: "Mutant bat", isEnemy: true }));
+        dispatch(updateInformation({ message: "Baby bat", isEnemy: true }));
         return;
       case CELL_ANCIENT_SWORD:
         dispatch(updateInformation({ message: "Ancient sword", isLoot: true }));
         return;
       case CELL_HEALTH_POTION:
-        dispatch(updateInformation({ message: "Health potion", isLoot: true }));
+        dispatch(updateInformation({ message: "Super health potion", isLoot: true }));
         return;
       case CELL_SANITY_POTION:
         dispatch(updateInformation({ message: "Sanity potion", isLoot: true }));
         return;
       case CELL_VISION_POTION:
-        dispatch(updateInformation({ message: "Vision potion", isLoot: true }));
+        dispatch(updateInformation({ message: "Super vision potion", isLoot: true }));
         return;
       case CELL_ENEMY_BABY:
         dispatch(updateInformation({ message: "Baby bat", isEnemy: true }));
@@ -91,10 +91,10 @@ const Game = () => {
         dispatch(updateInformation({ message: "Guard bat", isEnemy: true }));
         return;
       case CELL_HAMMER:
-        dispatch(updateInformation({ message: "Hammer", isLoot: true }));
+        dispatch(updateInformation({ message: "Ancient hammer", isLoot: true }));
         return;
       case CELL_SPEAR:
-        dispatch(updateInformation({ message: "Spear", isLoot: true }));
+        dispatch(updateInformation({ message: "Ancient spear", isLoot: true }));
         return;
       default:
         dispatch(updateInformation({ message: null }));

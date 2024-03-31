@@ -100,9 +100,9 @@ const PickButton = () => {
       case CELL_ANCIENT_SWORD:
         dispatch(
           addItem({
-            name: "Ancient rusty sword",
+            name: "Ancient sword",
             description:
-              "Ancient sword made up of iron. Does 20 damage to enemy",
+              "",
             isWeapon: true,
             damage: 20,
             isActive: false,
@@ -113,7 +113,7 @@ const PickButton = () => {
         dispatch(
           addItem({
             name: "Super health potion",
-            description: "Health potion, refills health",
+            description: "",
             health: 100,
             isPotion: true,
           }),
@@ -123,7 +123,7 @@ const PickButton = () => {
         dispatch(
           addItem({
             name: "Sanity potion",
-            description: "Sanity potion, +20 sanity",
+            description: "",
             sanity: 20,
             isPotion: true,
           }),
@@ -133,7 +133,7 @@ const PickButton = () => {
         dispatch(
           addItem({
             name: "Super vision potion",
-            description: "Vision potion, gives 30s of vision",
+            description: "",
             vision: 30,
             isPotion: true,
           }),
@@ -143,7 +143,7 @@ const PickButton = () => {
         dispatch(
           addItem({
             name: "Ancient hammer",
-            description: "Ancient hammer. Does 10 damage to enemy",
+            description: "",
             isWeapon: true,
             damage: 10,
             isActive: false,
@@ -154,7 +154,7 @@ const PickButton = () => {
         dispatch(
           addItem({
             name: "Ancient Spear",
-            description: "Ancient spear. Does 15 damage to enemy",
+            description: "",
             isWeapon: true,
             damage: 15,
             isActive: false,

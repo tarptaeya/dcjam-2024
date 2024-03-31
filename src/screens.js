@@ -135,7 +135,7 @@ export const WelcomeScreen = () => {
   const getOptionsView = () => {
     const restoreDefaults = () => {
       playClickSound();
-      dispatch(setOptionsSFX(70));
+      dispatch(setOptionsSFX(80));
       dispatch(setOptionsFOV(100));
       dispatch(setOptionsMovement("smooth"));
       dispatch(setOptionsBloom("on"));

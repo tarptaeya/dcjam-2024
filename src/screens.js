@@ -247,5 +247,33 @@ export const GameOverScreen = () => {
 };
 
 export const GameWinScreen = () => {
-  return <p>You won!</p>;
+  return (
+    <div id="game-win-container">
+      <div id="game-win-message">
+        <h3>Congratulations, Adventurer!</h3>
+        <p>
+          You have successfully navigated the treacherous depths of the ancient
+          cave, overcoming countless challenges and emerging victorious against
+          all odds. Your resilience, courage, and determination have brought you
+          to this moment of triumph.
+        </p>
+        <p>
+          As you bask in the warm glow of victory, know that your journey has
+          not only tested your skills but also forged you into a true hero. Your
+          name shall be remembered among the legends, a testament to your
+          indomitable spirit and unwavering resolve.
+        </p>
+        <p>
+          But remember, the end of one adventure is only the beginning of
+          another. As you step out of the darkness and into the light, may your
+          path be filled with endless possibilities and thrilling adventures yet
+          to come.
+        </p>
+        <p>
+          Once again, congratulations on your well-deserved victory. The world
+          awaits your next great adventure!
+        </p>
+      </div>
+    </div>
+  );
 };

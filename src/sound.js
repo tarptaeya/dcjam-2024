@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import store from "./store/store";
 
 export const getAudioContext = () => {
   const { audioContext } = window.dcjam;
@@ -32,10 +33,16 @@ export const getAudioBuffer = async (filepath) => {
 };
 
 export const playTrack = async (filepath) => {
+  const state = store.getState();
   const context = getAudioContext();
   const source = context.createBufferSource();
   source.buffer = await getAudioBuffer(filepath);
-  source.connect(context.destination);
+  const gainNode = context.createGain();
+
+  source.connect(gainNode);
+  gainNode.connect(context.destination);
+  gainNode.gain.value = state.options.value.sfx / 100;
+  console.log(gainNode.gain.value);
   source.start();
 };
 
@@ -50,13 +57,20 @@ export const startBackgroundTrack = async (filepath) => {
     window.dcjam.currentBackgroundTrack = null;
   }
 
+  const state = store.getState();
   const context = getAudioContext();
-  const node = context.createBufferSource();
-  node.buffer = await getAudioBuffer(filepath);
-  node.connect(context.destination);
-  node.loop = true;
-  window.dcjam.currentBackgroundTrack = node;
-  node.start();
+  const source = context.createBufferSource();
+  source.buffer = await getAudioBuffer(filepath);
+
+  const gainNode = context.createGain();
+
+  source.connect(gainNode);
+  gainNode.connect(context.destination);
+  gainNode.gain.value = state.options.value.sfx / 100;
+
+  source.loop = true;
+  window.dcjam.currentBackgroundTrack = source;
+  source.start();
 };
 
 export const stopBackgroundTrack = () => {

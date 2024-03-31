@@ -10,6 +10,7 @@ import currentCombatReducer from "./currentCombatSlice";
 import inventoryReducer from "./inventorySlice";
 import stageReducer from "./stageSlice";
 import playerSanityReducer from "./playerSanitySlice";
+import optionsReducer from "./optionsSlice";
 
 export default configureStore({
   reducer: {
@@ -23,5 +24,6 @@ export default configureStore({
     inventory: inventoryReducer,
     stage: stageReducer,
     playerSanity: playerSanityReducer,
+    options: optionsReducer,
   },
 });

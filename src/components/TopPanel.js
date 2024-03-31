@@ -70,7 +70,7 @@ const Inventory = () => {
   const getModal = () => {
     const weapons = inventory.items.filter((it) => it.isWeapon);
     const potions = inventory.items.filter((it) => it.isPotion);
-    const activeCount = weapons.filter(it => it.isActive).length;
+    const activeCount = weapons.filter((it) => it.isActive).length;
 
     const closeModal = () => {
       playClickSound();
@@ -186,7 +186,11 @@ const Inventory = () => {
           <div class="spacer" />
 
           <div id="inventory-modal-footer">
-            {currentTab === 'weapons' ? <div>{activeCount}/3 selected</div> : <div></div>}
+            {currentTab === "weapons" ? (
+              <div>{activeCount}/3 selected</div>
+            ) : (
+              <div></div>
+            )}
             <button
               id="inventory-modal-close-button"
               className="btn"

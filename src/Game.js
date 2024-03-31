@@ -162,7 +162,7 @@ const Game = () => {
       }
     } else {
       if (cellType === CELL_TELEPORT) {
-        dispatch(updateScreen('story.02'));
+        dispatch(updateScreen("story.02"));
       }
     }
   }, [playerLocation, isLifted]);

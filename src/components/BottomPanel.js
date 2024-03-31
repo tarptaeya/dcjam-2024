@@ -134,7 +134,7 @@ const PickButton = () => {
           addItem({
             name: "Super vision potion",
             description: "",
-            vision: 30,
+            vision: 45,
             isPotion: true,
           }),
         );

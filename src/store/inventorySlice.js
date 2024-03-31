@@ -12,14 +12,26 @@ const WEAPONS = [
 
 const POTIONS = [
   {
-    name: "Health potion",
-    description: "Health potion, gives +20 health",
-    health: 20,
+    name: "Health potion - A",
+    description: "",
+    health: 10,
+    isPotion: true,
+  },
+  {
+    name: "Health potion - B",
+    description: "",
+    health: 25,
+    isPotion: true,
+  },
+  {
+    name: "Health potion - C",
+    description: "",
+    health: 50,
     isPotion: true,
   },
   {
     name: "Vision potion",
-    description: "Vision potion, gives 15s of vision",
+    description: "",
     vision: 15,
     isPotion: true,
   },

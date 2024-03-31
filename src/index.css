@@ -462,6 +462,10 @@ canvas {
   height: 100%;
   background-color: #404244;
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .loading-bar {
@@ -470,6 +474,7 @@ canvas {
   background: #121212;
   padding: 2px;
   width: 200px;
+  margin-top: 22px;
 }
 
 .loading-bar>span {

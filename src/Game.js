@@ -177,7 +177,7 @@ const Game = () => {
 
   useFrame(({ clock }) => {
     const position = centeredVectorForLocation(playerLocation);
-    camera.position.lerp(position, 0.3);
+    camera.position.lerp(position, options.movement === 'smooth' ? 0.3 : 1);
 
     const deltaPosition = vectorForDirection(playerDirection);
     const front = new Vector3(

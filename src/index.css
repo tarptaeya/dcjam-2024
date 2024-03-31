@@ -60,7 +60,7 @@ canvas {
   width: 200px;
 }
 
-.health-bar > span {
+.health-bar>span {
   display: block;
   height: 100%;
   background-color: rgb(43, 194, 83);
@@ -68,7 +68,7 @@ canvas {
   overflow: hidden;
 }
 
-.health-bar.enemy > span {
+.health-bar.enemy>span {
   display: block;
   height: 100%;
   background-color: crimson;
@@ -197,14 +197,13 @@ canvas {
   background-color: #121212;
 }
 
-#inventory-tab-bar > div {
+#inventory-tab-bar>div {
   padding: 22px;
 }
 
-#inventory-tab-bar > div:hover {
-}
+#inventory-tab-bar>div:hover {}
 
-#inventory-tab-bar > div.active {
+#inventory-tab-bar>div.active {
   background-color: #404244;
 }
 
@@ -243,7 +242,7 @@ canvas {
   overflow: hidden;
 }
 
-.inventory-modal-weapon-active > span.ribbon {
+.inventory-modal-weapon-active>span.ribbon {
   width: 43px;
   height: 23px;
   background-color: rgb(43, 194, 83);
@@ -260,7 +259,7 @@ canvas {
   padding: 22px;
 }
 
-#inventory-modal-footer > div {
+#inventory-modal-footer>div {
   flex: 1;
 }
 
@@ -320,7 +319,7 @@ canvas {
   flex: 1;
 }
 
-#player-sanity-bar > span {
+#player-sanity-bar>span {
   background-color: blueviolet;
 }
 
@@ -403,7 +402,8 @@ canvas {
   margin-bottom: 18px;
 }
 
-.options-control input {
+.options-control input,
+.options-control select {
   width: 128px;
 }
 

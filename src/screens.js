@@ -6,7 +6,7 @@ import { updateScreen } from "./store/screenSlice";
 import BottomPanel from "./components/BottomPanel";
 import TopPanel from "./components/TopPanel";
 import { playClickSound } from "./sound";
-import { setOptionsFOV, setOptionsSFX } from "./store/optionsSlice";
+import { setOptionsFOV, setOptionsMovement, setOptionsSFX } from "./store/optionsSlice";
 
 export const AboutScreen = () => {
   const dispatch = useDispatch();
@@ -132,6 +132,7 @@ export const WelcomeScreen = () => {
       playClickSound();
       dispatch(setOptionsSFX(70));
       dispatch(setOptionsFOV(100));
+      dispatch(setOptionsMovement('smooth'));
     };
 
     return (
@@ -152,9 +153,9 @@ export const WelcomeScreen = () => {
           </div>
 
           <div className="options-control">
-            <label for="options-sfx">Field of View (in degrees)</label>
+            <label for="options-fov">Field of View (in degrees)</label>
             <input
-              id="options-sfx"
+              id="options-fov"
               type="number"
               value={options.fov}
               onChange={(e) => {
@@ -162,6 +163,17 @@ export const WelcomeScreen = () => {
               }}
             />
           </div>
+
+          <div className="options-control">
+            <label for="options-cam">Camera movement</label>
+            <select id="options-cam" name="options-cam" value={options.movement} onChange={e => {
+              dispatch(setOptionsMovement(e.target.value));
+            }}>
+              <option value={"smooth"}>Smooth</option>
+              <option value={"instant"}>Instant</option>
+            </select>
+          </div>
+
         </div>
         <div className="spacer"></div>
         <div style={{ display: "flex" }}>

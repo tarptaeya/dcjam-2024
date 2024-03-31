@@ -70,6 +70,7 @@ const Inventory = () => {
   const getModal = () => {
     const weapons = inventory.items.filter((it) => it.isWeapon);
     const potions = inventory.items.filter((it) => it.isPotion);
+    const activeCount = weapons.filter(it => it.isActive).length;
 
     const closeModal = () => {
       playClickSound();
@@ -103,6 +104,9 @@ const Inventory = () => {
             {currentTab === "weapons" &&
               weapons.map((it) => {
                 const onClickItem = () => {
+                  if (activeCount === 3 && !it.isActive) {
+                    return;
+                  }
                   playClickSound();
                   dispatch(toggleItemSelection(it.name));
                 };
@@ -182,7 +186,7 @@ const Inventory = () => {
           <div class="spacer" />
 
           <div id="inventory-modal-footer">
-            <div>*You can only select upto 3 weapons</div>
+            {currentTab === 'weapons' ? <div>{activeCount}/3 selected</div> : <div></div>}
             <button
               id="inventory-modal-close-button"
               className="btn"

@@ -120,9 +120,7 @@ export const WelcomeScreen = () => {
               The background and combat music tracks are generated using
               Google's MusicFX.
             </li>
-            <li>
-              The in game story is refined using ChatGPT.
-            </li>
+            <li>The in game story is refined using ChatGPT.</li>
           </ul>
         </div>
         <div className="spacer"></div>

@@ -39,7 +39,6 @@ const StoryComponent = ({ paragraphs, onComplete }) => {
             </button>
           )}
         </div>
-
       </div>
     </div>
   );

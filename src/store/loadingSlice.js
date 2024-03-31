@@ -1,17 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const loadingSlice = createSlice({
-    name: 'loading',
-    initialState: {
-        value: {
-            progress: 30,
-        }
+  name: "loading",
+  initialState: {
+    value: {
+      progress: 30,
     },
-    reducers: {
-        updateLoading: (state, actions) => {
-            state.value = actions.payload;
-        }
-    }
+  },
+  reducers: {
+    updateLoading: (state, actions) => {
+      state.value = actions.payload;
+    },
+  },
 });
 
 export const { updateLoading } = loadingSlice.actions;

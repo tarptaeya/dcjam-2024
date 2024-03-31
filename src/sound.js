@@ -101,20 +101,18 @@ export const setLiftedBackgroundTrackGain = (value) => {
   if (!window.dcjam.gainNode) return;
 
   const state = store.getState();
-  window.dcjam.gainNode.gain.value = value * state.options.value.sfx / 100;
+  window.dcjam.gainNode.gain.value = (value * state.options.value.sfx) / 100;
 };
 
-
 export const useAudioPreloader = () => {
-  if (window.dcjam.preloaded)
-    return true;
+  if (window.dcjam.preloaded) return true;
 
   throw new Promise(async (res, rej) => {
     try {
       await Promise.all([
-        getAudioBuffer('/click.ogg'),
-        getAudioBuffer('/background.mp3'),
-        getAudioBuffer('/combat.mp3'),
+        getAudioBuffer("/click.ogg"),
+        getAudioBuffer("/background.mp3"),
+        getAudioBuffer("/combat.mp3"),
       ]);
       window.dcjam.preloaded = true;
       res(<></>);
@@ -122,4 +120,4 @@ export const useAudioPreloader = () => {
       rej(err);
     }
   });
-}
+};

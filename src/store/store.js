@@ -11,7 +11,7 @@ import inventoryReducer from "./inventorySlice";
 import stageReducer from "./stageSlice";
 import playerSanityReducer from "./playerSanitySlice";
 import optionsReducer from "./optionsSlice";
-import loadingReducer from './loadingSlice';
+import loadingReducer from "./loadingSlice";
 
 export default configureStore({
   reducer: {

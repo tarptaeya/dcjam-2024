@@ -184,7 +184,6 @@ const CombatPanel = () => {
   const playerAttackOptions = inventory.items.filter(
     (it) => it.isWeapon && it.isActive,
   );
-  console.log(playerAttackOptions);
 
   const optionsCard = playerAttackOptions.map((attack) => {
     const handleAttack = () => {

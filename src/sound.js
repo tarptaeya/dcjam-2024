@@ -42,7 +42,7 @@ export const playTrack = async (filepath) => {
   source.connect(gainNode);
   gainNode.connect(context.destination);
   gainNode.gain.value = state.options.value.sfx / 100;
-  console.log(gainNode.gain.value);
+
   source.start();
 };
 

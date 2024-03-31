@@ -8,32 +8,38 @@ const StoryComponent = ({ paragraphs, onComplete }) => {
   return (
     <div id="story-container-wrapper">
       <div id="story-container">
-        {paragraphs.map((p, i) => {
-          if (i > index) return <></>;
-          return <div className="story-p">{p}</div>;
-        })}
-        {index < n - 1 && (
-          <button
-            className="btn"
-            onClick={() => {
-              playClickSound();
-              setIndex(index + 1);
-            }}
-          >
-            Next
-          </button>
-        )}
-        {index === n - 1 && (
-          <button
-            className="btn"
-            onClick={() => {
-              playClickSound();
-              onComplete();
-            }}
-          >
-            Continue
-          </button>
-        )}
+        <div className="p-wrapper">
+          {paragraphs.map((p, i) => {
+            if (i > index) return <></>;
+            return <div className="story-p">{p}</div>;
+          })}
+        </div>
+
+        <div className="b-wrapper">
+          {index < n - 1 && (
+            <button
+              className="btn story-btn-next"
+              onClick={() => {
+                playClickSound();
+                setIndex(index + 1);
+              }}
+            >
+              Next
+            </button>
+          )}
+          {index === n - 1 && (
+            <button
+              className="btn story-btn-continue"
+              onClick={() => {
+                playClickSound();
+                onComplete();
+              }}
+            >
+              Continue
+            </button>
+          )}
+        </div>
+
       </div>
     </div>
   );

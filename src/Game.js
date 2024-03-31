@@ -177,7 +177,7 @@ const Game = () => {
 
   useFrame(({ clock }) => {
     const position = centeredVectorForLocation(playerLocation);
-    camera.position.lerp(position, options.movement === 'smooth' ? 0.3 : 1);
+    camera.position.lerp(position, options.movement === "smooth" ? 0.3 : 1);
 
     const deltaPosition = vectorForDirection(playerDirection);
     const front = new Vector3(
@@ -199,7 +199,9 @@ const Game = () => {
       <Dungeon />
 
       <EffectComposer>
-        <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
+        {options.bloom === "on" && (
+          <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
+        )}
       </EffectComposer>
     </>
   );

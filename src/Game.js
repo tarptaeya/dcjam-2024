@@ -148,9 +148,9 @@ const Game = () => {
 
     const lookAtCell = getLookAtCell();
     if (lookAtCell == CELL_WALL) {
-      setLiftedBackgroundTrackGain(1.0);
+      setLiftedBackgroundTrackGain(0.5);
     } else {
-      setLiftedBackgroundTrackGain(0.2);
+      setLiftedBackgroundTrackGain(0.0);
     }
   }, [isLifted, dungeon, playerLocation, playerDirection]);
 

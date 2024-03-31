@@ -99,9 +99,7 @@ export const startLiftedBackgroundTrack = () => {
 
 export const setLiftedBackgroundTrackGain = (value) => {
   if (!window.dcjam.gainNode) return;
-  const context = getAudioContext();
-  window.dcjam.gainNode.gain.exponentialRampToValueAtTime(
-    value,
-    context.currentTime + 0.2,
-  );
+
+  const state = store.getState();
+  window.dcjam.gainNode.gain.value = value * state.options.value.sfx / 100;
 };

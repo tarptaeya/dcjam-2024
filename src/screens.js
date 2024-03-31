@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useCallback, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import Game from "./Game";
 import { useDispatch, useSelector } from "react-redux";
@@ -60,7 +60,7 @@ export const WelcomeScreen = () => {
     return (
       <>
         <div id="welcome-screen-title">
-          <h1>Chintu's Quest: Journey Through the Ancient Cave and Beyond</h1>
+          <h1>Chintu's Quest: Journey Through the Ancient Cave and Beyond!</h1>
           <p>
             Embark on the adventure, guiding the stranded archaeologist through
             perilous depths, confronting hostile creatures, and unlocking
@@ -228,19 +228,34 @@ export const WelcomeScreen = () => {
 };
 
 export const GameOverScreen = () => {
-  const navigateToWelcome = () => {
-    window.location.reload();
-  };
-
   return (
-    <div id="game-over-screen">
-      <div id="game-over-screen-contents">
-        <h2>Wasted... Game Over!!!</h2>
-        <div id="game-over-screen-actions">
-          <button className="btn" onClick={navigateToWelcome}>
-            Back to Menu
-          </button>
-        </div>
+    <div id="game-win-container">
+      <div id="game-win-message">
+        <p>
+          Oops! It seems like the shadows of the ancient cave have overwhelmed
+          you, adventurer.
+        </p>
+        <p>
+          Though the journey was fraught with challenges and dangers, your
+          bravery was unmatched. However, the depths of the cave proved to be
+          insurmountable this time.
+        </p>
+        <p>
+          But fear not, for every setback is a stepping stone towards greater
+          victories. Take this moment to reflect on your experiences, learn from
+          your mistakes, and emerge even stronger for the next adventure that
+          awaits.
+        </p>
+        <p>
+          Remember, it's not about how many times you fall, but how you rise
+          each time. Let this setback fuel your determination to conquer even
+          greater challenges in the future.
+        </p>
+        <p>
+          Until then, rest and recuperate, for the world is vast and filled with
+          countless adventures yet to be explored. Your next triumph awaits just
+          beyond the horizon."
+        </p>
       </div>
     </div>
   );

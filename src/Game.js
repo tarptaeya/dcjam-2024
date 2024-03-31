@@ -162,9 +162,7 @@ const Game = () => {
       }
     } else {
       if (cellType === CELL_TELEPORT) {
-        dispatch(liftStage());
-        dispatch(setStageVisible(false));
-        dispatch(setDungeon(LIFTED_DUNGEON_MAP));
+        dispatch(updateScreen('story.02'));
       }
     }
   }, [playerLocation, isLifted]);

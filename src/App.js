@@ -6,13 +6,17 @@ import {
   GameOverScreen,
   GameWinScreen,
 } from "./screens";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   startBackgroundTrack,
   startLiftedBackgroundTrack,
   stopBackgroundTrack,
 } from "./sound";
 import StoryComponent from "./components/Story";
+import { updateScreen } from "./store/screenSlice";
+import { liftStage, setStageVisible } from "./store/stageSlice";
+import { setDungeon } from "./store/dungeonSlice";
+import { LIFTED_DUNGEON_MAP } from "./constants";
 
 function App() {
   const screen = useSelector((state) => state.screen.value);
@@ -21,6 +25,8 @@ function App() {
 
   const { isActive } = currentCombat;
   const { isLifted } = stage;
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (screen === "game") {
@@ -36,14 +42,6 @@ function App() {
     }
   }, [screen, isLifted, isActive]);
 
-  if (true) {
-    return (
-      <StoryComponent
-        paragraphs={["Hello", "World", "Play now"]}
-        onComplete={() => {}}
-      />
-    );
-  }
 
   return (
     <>
@@ -52,6 +50,23 @@ function App() {
       {screen === "game" && <GameScreen />}
       {screen === "gamewin" && <GameWinScreen />}
       {screen === "gameover" && <GameOverScreen />}
+
+      {screen === 'story.01' && <StoryComponent
+        paragraphs={["Hello", "World", "Play now"]}
+        onComplete={() => {
+          dispatch(updateScreen('game'));
+        }}
+      />}
+
+      {screen === 'story.02' && <StoryComponent
+        paragraphs={["Now", "This", "is", "Level 2"]}
+        onComplete={() => {
+          dispatch(liftStage());
+          dispatch(setStageVisible(false));
+          dispatch(setDungeon(LIFTED_DUNGEON_MAP));
+          dispatch(updateScreen('game'));
+        }}
+      />}
     </>
   );
 }

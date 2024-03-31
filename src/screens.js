@@ -47,7 +47,7 @@ export const WelcomeScreen = () => {
   const [view, setView] = useState("main");
 
   const navigateToGame = () => {
-    dispatch(updateScreen("game"));
+    dispatch(updateScreen("story.01"));
   };
 
   const presentView = (name) => {

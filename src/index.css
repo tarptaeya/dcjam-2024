@@ -400,4 +400,14 @@ canvas {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 18px;
+}
+
+.options-control input {
+  width: 128px;
+}
+
+.restore-default-btn {
+  background-color: gray !important;
+  margin-right: 22px;
 }

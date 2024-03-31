@@ -41,6 +41,7 @@ const Game = () => {
   const playerHealth = useSelector((state) => state.playerHealth.value);
   const playerSanity = useSelector((state) => state.playerSanity.value);
   const stage = useSelector((state) => state.stage.value);
+  const options = useSelector((state) => state.options.value);
   const { isLifted } = stage;
 
   const dispatch = useDispatch();
@@ -48,7 +49,7 @@ const Game = () => {
   const spotLightRef = useRef();
 
   useEffect(() => {
-    camera.fov = 100;
+    camera.fov = options.fov;
     camera.updateProjectionMatrix();
 
     const position = centeredVectorForLocation(playerLocation);
@@ -60,7 +61,7 @@ const Game = () => {
       nextLocation(playerLocation, playerDirection),
     );
     camera.lookAt(front);
-  }, []);
+  }, [options]);
 
   useEffect(() => {
     const lookAtCell = getLookAtCell();

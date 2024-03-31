@@ -6,7 +6,7 @@ import { updateScreen } from "./store/screenSlice";
 import BottomPanel from "./components/BottomPanel";
 import TopPanel from "./components/TopPanel";
 import { playClickSound } from "./sound";
-import { setOptionsSFX } from "./store/optionsSlice";
+import { setOptionsFOV, setOptionsSFX } from "./store/optionsSlice";
 
 export const AboutScreen = () => {
   const dispatch = useDispatch();
@@ -91,8 +91,17 @@ export const WelcomeScreen = () => {
             </a>
             .
           </p>
-          <p>All the game assets are generated using AI as described below:</p>
+
           <ul>
+            <li>
+              The interface sounds in this game are sourced from{" "}
+              <a
+                href="https://kenney.nl/assets/interface-sounds"
+                target="_blank"
+              >
+                Kenney (Interface Sounds).
+              </a>
+            </li>
             <li>
               All the textures and enemy sprites are generated using stable
               diffusion model from keras_cv.
@@ -101,7 +110,10 @@ export const WelcomeScreen = () => {
               The images for potion and weapons are generated using Google's
               ImageFX.
             </li>
-            <li>The music tracks are generated using Google's MusicFX.</li>
+            <li>
+              The background and combat music tracks are generated using
+              Google's MusicFX.
+            </li>
           </ul>
         </div>
         <div className="spacer"></div>
@@ -116,6 +128,12 @@ export const WelcomeScreen = () => {
   };
 
   const getOptionsView = () => {
+    const restoreDefaults = () => {
+      playClickSound();
+      dispatch(setOptionsSFX(70));
+      dispatch(setOptionsFOV(100));
+    };
+
     return (
       <>
         <h3>Options</h3>
@@ -132,12 +150,27 @@ export const WelcomeScreen = () => {
               }}
             />
           </div>
+
+          <div className="options-control">
+            <label for="options-sfx">Field of View (in degrees)</label>
+            <input
+              id="options-sfx"
+              type="number"
+              value={options.fov}
+              onChange={(e) => {
+                dispatch(setOptionsFOV(e.target.value));
+              }}
+            />
+          </div>
         </div>
         <div className="spacer"></div>
         <div style={{ display: "flex" }}>
           <div className="spacer"></div>
+          <button className="btn restore-default-btn" onClick={restoreDefaults}>
+            Restore defaults
+          </button>
           <button className="btn" onClick={() => presentView("main")}>
-            Back to Menu
+            Ok
           </button>
         </div>
       </>

@@ -1,10 +1,11 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import Game from "./Game";
 import { useDispatch } from "react-redux";
 import { updateScreen } from "./store/screenSlice";
 import BottomPanel from "./components/BottomPanel";
 import TopPanel from "./components/TopPanel";
+import { playClickSound } from "./sound";
 
 export const AboutScreen = () => {
   const dispatch = useDispatch();
@@ -35,41 +36,86 @@ export const GameScreen = () => {
 
 export const WelcomeScreen = () => {
   const dispatch = useDispatch();
+  const [view, setView] = useState('main');
 
   const navigateToGame = () => {
     dispatch(updateScreen("game"));
   };
 
-  const navigateToAbout = () => {
-    dispatch(updateScreen("about"));
+  const presentView = (name) => {
+    playClickSound();
+    setView(name);
+  };
+
+  const getMainView = () => {
+    return <>
+      <div id="welcome-screen-title">
+        <h1>Chintu's Quest: Journey Through the Ancient Cave</h1>
+        <p>
+          Embark on the adventure, guiding the stranded archaeologist through
+          perilous depths, confronting hostile creatures, and unlocking
+          mysterious portals. Can you lead Chintu to safety?
+        </p>
+        <p></p>
+      </div>
+      <div id="welcome-screen-btn-container">
+        <button onClick={navigateToGame} className="btn primary">
+          New Game
+        </button>
+        <button onClick={() => presentView('options')} className="btn">
+          Options
+        </button>
+        <button onClick={() => presentView('credits')} className="btn">
+          Credits
+        </button>
+      </div></>;
+  };
+
+  const getCreditsView = () => {
+    return <>
+      <h3>Credits</h3>
+      <div>
+        <p>
+          The game is developed by <em>tarptaeya</em> for Dungeon Crawler Jam 2024 using React, React Three Fiber, and Redux. The source
+          code of the game can be found at <a href="https://github.com/tarptaeya/dcjam-2024" target="_blank">tarptaeya/dcjam-2024</a>.
+        </p>
+        <p>All the game assets are generated using AI as described below:</p>
+        <ul>
+          <li>All the textures and enemy sprites are generated using stable diffusion model from keras_cv.</li>
+          <li>The images for potion and weapons are generated using Google's ImageFX.</li>
+          <li>The music tracks are generated using Google's MusicFX.</li>
+        </ul>
+      </div>
+      <div className="spacer"></div>
+      <div style={{ display: 'flex' }}>
+        <div className="spacer"></div>
+        <button className="btn" onClick={() => presentView('main')}>Back to Menu</button>
+      </div>
+    </>
+  };
+
+  const getOptionsView = () => {
+    return <>
+      <h3>Options</h3>
+      <div>
+        <div>
+
+        </div>
+      </div>
+      <div className="spacer"></div>
+      <div style={{ display: 'flex' }}>
+        <div className="spacer"></div>
+        <button className="btn" onClick={() => presentView('main')}>Back to Menu</button>
+      </div>
+    </>
   };
 
   return (
     <div id="welcome-screen">
       <div id="welcome-screen-container">
-        <div id="welcome-screen-title">
-          <h1>Chintu's Quest: Journey Through the Ancient Cave</h1>
-          <p>
-            Embark on the adventure, guiding the stranded archaeologist through
-            perilous depths, confronting hostile creatures, and unlocking
-            mysterious portals. Can you lead Chintu to safety?
-          </p>
-          <p></p>
-        </div>
-        <div id="welcome-screen-btn-container">
-          <button onClick={navigateToGame} className="btn primary">
-            New Game
-          </button>
-          <button onClick={() => {}} className="btn">
-            Help
-          </button>
-          <button onClick={() => {}} className="btn">
-            Options
-          </button>
-          <button onClick={navigateToAbout} className="btn">
-            Credits
-          </button>
-        </div>
+        {view === 'main' && getMainView()}
+        {view === 'credits' && getCreditsView()}
+        {view === 'options' && getOptionsView()}
       </div>
     </div>
   );

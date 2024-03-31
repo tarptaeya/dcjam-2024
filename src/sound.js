@@ -69,8 +69,9 @@ export const startBackgroundTrack = async (filepath) => {
   gainNode.gain.value = state.options.value.sfx / 100;
 
   source.loop = true;
+  window.dcjam.gainNode = gainNode;
   window.dcjam.currentBackgroundTrack = source;
-  source.start();
+  source.start(context.currentTime, context.currentTime);
 };
 
 export const stopBackgroundTrack = () => {
@@ -111,8 +112,14 @@ export const useAudioPreloader = () => {
     try {
       await Promise.all([
         getAudioBuffer("/click.ogg"),
-        getAudioBuffer("/background.mp3"),
-        getAudioBuffer("/combat.mp3"),
+        getAudioBuffer("/attack.ogg"),
+        getAudioBuffer("/coins.ogg"),
+
+        getAudioBuffer("/story-1.wav"),
+        getAudioBuffer("/background-1.wav"),
+        getAudioBuffer("/background-2.wav"),
+
+        getAudioBuffer("/win.mp3"),
       ]);
       window.dcjam.preloaded = true;
       res(<></>);

@@ -8,6 +8,7 @@ import {
 } from "./screens";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  playTrack,
   startBackgroundTrack,
   startLiftedBackgroundTrack,
   stopBackgroundTrack,
@@ -35,10 +36,14 @@ function App() {
       if (isLifted) {
         startLiftedBackgroundTrack();
       } else if (currentCombat.isActive) {
-        startBackgroundTrack("/combat.mp3");
+        startBackgroundTrack("/battle-1.wav");
       } else {
-        startBackgroundTrack("/background.mp3");
+        startBackgroundTrack("/background-1.wav");
       }
+    } else if (screen === "story.01" || screen === "story.02") {
+      startBackgroundTrack("/story-1.wav");
+    } else if (screen === "gamewin") {
+      startBackgroundTrack("/win.mp3");
     } else {
       stopBackgroundTrack();
     }

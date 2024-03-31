@@ -27,7 +27,7 @@ import {
 } from "./constants";
 import { setDungeon, updateCell } from "./store/dungeonSlice";
 import { updateScreen } from "./store/screenSlice";
-import { setLiftedBackgroundTrackGain } from "./sound";
+import { playTrack, setLiftedBackgroundTrackGain } from "./sound";
 import { liftStage, setStageVisible } from "./store/stageSlice";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";
 import { decrementPlayerSanity } from "./store/playerSanitySlice";
@@ -111,6 +111,7 @@ const Game = () => {
       const lookAtLocation = getLookAtLocation();
       dispatch(resetCombat());
       dispatch(updateCell({ location: lookAtLocation, cellType: CELL_FLOOR }));
+      playTrack("/coins.ogg");
       return;
     }
 
@@ -123,6 +124,7 @@ const Game = () => {
       const attack = enemyAttackOptions[0];
 
       setTimeout(() => {
+        playTrack("attack.ogg");
         dispatch(processEnemyAttack(attack));
         dispatch(alternateTurn());
       }, 1000);

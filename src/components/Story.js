@@ -10,8 +10,12 @@ const StoryComponent = ({ paragraphs, onComplete }) => {
       <div id="story-container">
         <div className="p-wrapper">
           {paragraphs.map((p, i) => {
-            if (i > index) return <></>;
-            return <div className="story-p">{p}</div>;
+            if (i > index) return <React.Fragment key={i} />;
+            return (
+              <div key={i} className="story-p">
+                {p}
+              </div>
+            );
           })}
         </div>
 

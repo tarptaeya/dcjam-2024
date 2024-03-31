@@ -456,3 +456,26 @@ canvas {
     width: 800px;
   }
 }
+
+#loading-container {
+  width: 100%;
+  height: 100%;
+  background-color: #404244;
+  color: white;
+}
+
+.loading-bar {
+  height: 22px;
+  position: relative;
+  background: #121212;
+  padding: 2px;
+  width: 200px;
+}
+
+.loading-bar>span {
+  display: block;
+  height: 100%;
+  background-color: #f0f0f0;
+  position: relative;
+  overflow: hidden;
+}

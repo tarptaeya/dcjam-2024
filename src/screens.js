@@ -47,6 +47,7 @@ export const WelcomeScreen = () => {
   const [view, setView] = useState("main");
 
   const navigateToGame = () => {
+    playClickSound();
     dispatch(updateScreen("story.01"));
   };
 
@@ -59,7 +60,7 @@ export const WelcomeScreen = () => {
     return (
       <>
         <div id="welcome-screen-title">
-          <h1>Chintu's Quest: Journey Through the Ancient Cave</h1>
+          <h1>Chintu's Quest: Journey Through the Ancient Cave and Beyond</h1>
           <p>
             Embark on the adventure, guiding the stranded archaeologist through
             perilous depths, confronting hostile creatures, and unlocking
@@ -138,7 +139,7 @@ export const WelcomeScreen = () => {
   const getOptionsView = () => {
     const restoreDefaults = () => {
       playClickSound();
-      dispatch(setOptionsSFX(80));
+      dispatch(setOptionsSFX(50));
       dispatch(setOptionsFOV(100));
       dispatch(setOptionsMovement("smooth"));
       dispatch(setOptionsBloom("on"));
@@ -156,7 +157,7 @@ export const WelcomeScreen = () => {
               max={100}
               value={options.sfx}
               onChange={(e) => {
-                dispatch(setOptionsSFX(e.target.value));
+                dispatch(setOptionsSFX(parseInt(e.target.value)));
               }}
             />
           </div>

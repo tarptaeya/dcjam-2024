@@ -11,6 +11,7 @@ import {
   startBackgroundTrack,
   startLiftedBackgroundTrack,
   stopBackgroundTrack,
+  useAudioPreloader,
 } from "./sound";
 import StoryComponent from "./components/Story";
 import { updateScreen } from "./store/screenSlice";
@@ -27,6 +28,7 @@ function App() {
   const { isLifted } = stage;
 
   const dispatch = useDispatch();
+  const res = useAudioPreloader();
 
   useEffect(() => {
     if (screen === "game") {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import store from "./store/store";
 
 export const getAudioContext = () => {
@@ -103,3 +103,23 @@ export const setLiftedBackgroundTrackGain = (value) => {
   const state = store.getState();
   window.dcjam.gainNode.gain.value = value * state.options.value.sfx / 100;
 };
+
+
+export const useAudioPreloader = () => {
+  if (window.dcjam.preloaded)
+    return true;
+
+  throw new Promise(async (res, rej) => {
+    try {
+      await Promise.all([
+        getAudioBuffer('/click.ogg'),
+        getAudioBuffer('/background.mp3'),
+        getAudioBuffer('/combat.mp3'),
+      ]);
+      window.dcjam.preloaded = true;
+      res(<></>);
+    } catch (err) {
+      rej(err);
+    }
+  });
+}

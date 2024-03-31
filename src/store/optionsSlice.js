@@ -4,7 +4,7 @@ const optionsSlice = createSlice({
   name: "options",
   initialState: {
     value: {
-      sfx: 80,
+      sfx: 50,
       fov: 100,
       movement: "smooth",
       bloom: "on",
